@@ -1,0 +1,112 @@
+<!--
+ * COPYRIGHT (C) 2010
+ * RE2, INC.
+ *
+ * Author: RE2
+ *
+ * This file is a part of RobotModel, which was developed for the
+ * DARPA ARM ROBOT Track C project.
+ *
+ * RobotModel is free software:
+ * you can redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either version
+ * 3 of the License, or (at your option) any later version.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this package.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * RE2, INC. disclaims all warranties with regard to this software, including
+ * all implied warranties of merchantability and fitness, in no event shall
+ * RE2, INC. be liable for any special, indirect or consequential damages or
+ * any damages whatsoever resulting from loss of use, data or profits, whether
+ * in an action of contract, negligence or other tortious action, arising out
+ * of or in connection with the use or performance of this software.
+-->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find champ_description)/urdf/wam/common.urdf.xacro"/>
+
+  <!-- High-leveel hand macro -->
+  <xacro:macro name="bball" params="parent_link prefix xyz rpy">
+    <joint name="${prefix}/bball_base_joint" type="fixed">
+      <parent link="${parent_link}"/>
+      <child link="${prefix}/bball_base_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+    <link name="${prefix}/bball_base_link">
+      <inertial>
+        <origin xyz="0 0 0.078"/>
+        <mass value="0.5986" />
+        <inertia
+          ixx="0.000551412" ixy="0"  ixz="0"
+                           iyy="0.000551412"   iyz="0"
+                                              izz="0.000551412" />
+      </inertial>
+
+      <visual>
+        <material name="WAMGrey">
+          <color rgba="0.9 0.9 0.9 0.0"/>
+        </material>
+        <origin xyz="0 0 .005" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0415" length="0.01"/>
+        </geometry>
+      </visual>
+      <visual>
+        <material name="WAMGrey">
+          <color rgba="0.9 0.9 0.9 0.0"/>
+        </material>
+        <origin xyz="0 0 0.0425" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.006" length="0.065"/>
+        </geometry>
+      </visual>
+      <visual>
+        <material name="WAMGrey">
+          <color rgba="0.9 0.9 0.9 0.0"/>
+        </material>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.0255"/>
+        </geometry>
+      </visual>
+      
+      <collision>
+        <origin xyz="0 0 .005" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.0415" length="0.01"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0 0.0425" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="0.006" length="0.065"/>
+        </geometry>
+      </collision>
+      <collision>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="0.0255"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}/bball_center_joint" type="fixed">
+      <parent link="${prefix}/bball_base_link"/>
+      <child link="${prefix}/bball_center_link"/>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}/bball_center_link">
+      <inertial>
+        <origin xyz="0 0 0"/>
+        <mass value="0.00001" />
+        <inertia
+          ixx="0.0001" ixy="0"  ixz="0"
+                       iyy="0.0001"   iyz="0"
+                                      izz="0.0001" />
+      </inertial>
+    </link>
+  </xacro:macro>
+
+</robot>

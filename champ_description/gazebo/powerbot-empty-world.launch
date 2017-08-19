@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+  <!--<env name="GAZEBO_MODEL_PATH" value="$GAZEBO_MODEL_PATH:$(find amr_robots_gazebo)/models:$(find barrett_model)/robots" /> -->
+  <env name="GAZEBO_RESOURCE_PATH" value="$GAZEBO_RESOURCE_PATH:$(find champ_description)/gazebo/models" />
+
+<arg name="world" default="$(find champ_description)/gazebo/empty.world" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+	<arg name="world_name" value="$(arg world)" />
+  </include>
+
+  <arg name="urdf" default="$(find champ_description)/urdf/powerbot/powerbot.urdf" />
+  <arg name="name" default="powerbot" />
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg urdf)" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model $(arg name)" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+</launch>
+
