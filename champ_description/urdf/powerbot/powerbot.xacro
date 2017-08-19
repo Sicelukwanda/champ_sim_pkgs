@@ -23,7 +23,7 @@
   <xacro:property name="mesh_directory" value="package://champ_description/meshes/p3dx_meshes"/>
 
   <!--bcz = base_center z value -->
-  <xacro:property name="bcz" value="0.1315"/> <!-- 0.148 -->
+  <xacro:property name="bcz" value="0.067"/> <!-- 0.148 -->
 
 
 <!-- Brown arm plate -->
@@ -121,9 +121,9 @@
 		</collision>
 	</link>
 	<gazebo reference="base_center">
-		<material>Gazebo/Yellow"</material>
+		<material value ="Gazebo/Yellow"/>
 	</gazebo>
-<!-- Swivel2 -->
+<!-- Swivel2 
 
 	<link name="swivel2">
 		<inertial>
@@ -152,7 +152,7 @@
 		<material value="Gazebo/Grey"/>
 	</gazebo>
 	<joint name="base_swivel_joint2" type="continuous">
-		<!--origin xyz="0.045 0 0.055" rpy="0 0 0"/-->
+		
 		<origin xyz="0.045 0 ${bcz - 0.093}" rpy="0 0 0"/>
 		<anchor xyz="0 0 0"/>
     	<limit effort="100" velocity="100" k_velocity="0" />
@@ -160,8 +160,8 @@
 		<parent link="base_center"/>
 		<child link="swivel2"/>
 	</joint>
-
-<!-- Center Wheel + Hubcap -->
+-->
+<!-- Center Wheel + Hubcap
 	<link name="center_hubcap2">
 		<inertial>
 			<mass value="0.01"/>	
@@ -233,9 +233,9 @@
 		<child link="center_hubcap2"/>
 	</joint>
 
+ -->
 
-
-  <!-- Swivel -->
+  <!-- Swivel 
 
 	<link name="swivel">
 		<inertial>
@@ -264,7 +264,6 @@
 		<material value="Gazebo/Grey"/>
 	</gazebo>
 	<joint name="base_swivel_joint" type="continuous">
-		<!--origin xyz="0.045 0 0.055" rpy="0 0 0"/-->
 		<origin xyz="0.045 0 ${bcz - 0.093}" rpy="0 0 0"/>
 		<anchor xyz="0 0 0"/>
     	<limit effort="100" velocity="100" k_velocity="0" />
@@ -272,8 +271,9 @@
 		<parent link="base_center"/>
 		<child link="swivel"/>
 	</joint>
+-->
 
-<!-- Center Wheel + Hubcap -->
+<!-- Center Wheel + Hubcap 
 	<link name="center_hubcap">
 		<inertial>
 			<mass value="0.01"/>	
@@ -343,9 +343,9 @@
 		<parent link="center_wheel"/>
 		<child link="center_hubcap"/>
 	</joint>
-
+-->
 	
-	<!--Wheels-->
+	<!--Wheels
 
 
 	<link name="left_hub">
@@ -361,7 +361,6 @@
 	</link>
 
 	<joint name="left_hub_joint" type="fixed">
-		<!--origin xyz="0.1 0.30 0.04" rpy="0 0 0"/-->
 		<origin xyz="0.1 0.30 ${bcz - 0.108}" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="left_hub"/>
@@ -406,7 +405,7 @@
 	</gazebo>
 
 	<joint name="right_hub_joint" type="fixed">
-		<!--origin xyz="0.1 -0.30 0.04" rpy="0 0 0"/-->
+		
 		<origin xyz="0.1 -0.30 ${bcz - 0.108}" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="right_hub"/>
@@ -433,8 +432,9 @@
 	<gazebo reference="right_wheel_joint">
 		<material value="Gazebo/Black"/>
 	</gazebo>
+-->
 
-<!-- Front + Back Sonar -->
+<!-- Front + Back Sonar
 	<link name="front_sonar">
 		<inertial>
 			<mass value="0.0001"/>	
@@ -464,7 +464,7 @@
 	</gazebo>
 
 	<joint name="base_front_joint" type="fixed">
-		<!--origin xyz="-0.198 0 0.208" rpy="0 0 0"/-->
+		
 		<origin xyz="-0.198 0 ${bcz + 0.06}" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="front_sonar"/>
@@ -499,12 +499,12 @@
 	</gazebo>
 
 	<joint name="base_back_joint" type="fixed">
-		<!--origin xyz="0.109 0 0.209" rpy="0 0 0"/-->
+		
 		<origin xyz="0.109 0 ${bcz + 0.061}" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="back_sonar"/>
 	</joint>
-
+ -->
 <xacro:macro name="p3at_gazebo_ext">
 
 <gazebo>

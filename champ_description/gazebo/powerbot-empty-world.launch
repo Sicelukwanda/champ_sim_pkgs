@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <!--<env name="GAZEBO_MODEL_PATH" value="$GAZEBO_MODEL_PATH:$(find amr_robots_gazebo)/models:$(find barrett_model)/robots" /> -->
+  <env name="GAZEBO_MODEL_PATH" value="$GAZEBO_MODEL_PATH:$(find champ_description)/meshes" />
   <env name="GAZEBO_RESOURCE_PATH" value="$GAZEBO_RESOURCE_PATH:$(find champ_description)/gazebo/models" />
 
 <arg name="world" default="$(find champ_description)/gazebo/empty.world" />
