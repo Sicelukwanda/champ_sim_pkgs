@@ -78,7 +78,7 @@
         <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel_support.stl"/>
       </geometry>
       <material name="swivel">
-        <color rgba="0.1 0.1 0.1 1"/>
+        <color rgba="0.9 0.9 0.9 1"/>
       </material>
     </visual>
     <collision>
@@ -92,7 +92,7 @@
     <material value="Gazebo/Grey"/>
   </gazebo>
   <joint name="right_base_swivel_support_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="-0.215 -0.2 -0.14"/>
+    <origin rpy="0 0 0" xyz="-0.215 -0.2 -0.091"/>
     <parent link="base_center"/>
     <child link="right_swivel_support"/>
   </joint>
@@ -122,11 +122,11 @@
   <gazebo reference="swivel">
     <material value="Gazebo/Grey"/>
   </gazebo>
-  <joint name="right_base_swivel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+  <joint name="right_base_swivel_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.04855"/>
+    <!--<axis xyz="0 0 1"/>
+	    	<limit effort="100" velocity="100" k_velocity="0" />
+	    	<joint_properties damping="0.0" friction="0.0" />-->
     <parent link="right_swivel_support"/>
     <child link="right_swivel"/>
   </joint>
@@ -208,7 +208,7 @@
         <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel_support.stl"/>
       </geometry>
       <material name="swivel">
-        <color rgba="0.1 0.1 0.1 1"/>
+        <color rgba="0.9 0.9 0.9 1"/>
       </material>
     </visual>
     <collision>
@@ -222,7 +222,7 @@
     <material value="Gazebo/Grey"/>
   </gazebo>
   <joint name="left_base_swivel_support_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="-0.215 0.2 -0.14"/>
+    <origin rpy="0 0 0" xyz="-0.215 0.2 -0.091"/>
     <parent link="base_center"/>
     <child link="left_swivel_support"/>
   </joint>
@@ -252,11 +252,11 @@
   <gazebo reference="swivel">
     <material value="Gazebo/Grey"/>
   </gazebo>
-  <joint name="left_base_swivel_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 0 1"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+  <joint name="left_base_swivel_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 -0.04855"/>
+    <!--	<axis xyz="0 0 1"/>
+         <limit effort="100" velocity="100" k_velocity="0" />
+    	<joint_properties damping="0.0" friction="0.0" />-->
     <parent link="left_swivel_support"/>
     <child link="left_swivel"/>
   </joint>
@@ -348,11 +348,11 @@
       </geometry>
     </collision>
   </link>
-  <joint name="left_hub_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.1 0.35 -0.0835"/>
-    <anchor xyz="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+  <joint name="left_hub_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.034 0.35 -0.0835"/>
+    <!--<anchor xyz="0 0 0"/>
+	        <limit effort="100" velocity="100" />
+	        <joint_properties damping="0.0" friction="0.0" />-->
     <parent link="base_center"/>
     <child link="left_hubcap"/>
     <axis xyz="0 1 0"/>
@@ -410,11 +410,11 @@
       </geometry>
     </collision>
   </link>
-  <joint name="right_hub_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.1 -0.35 -0.0835"/>
-    <anchor xyz="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+  <joint name="right_hub_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.034 -0.35 -0.0835"/>
+    <!--<anchor xyz="0 0 0"/>
+	        <limit effort="100" velocity="100" />
+	        <joint_properties damping="0.0" friction="0.0" />-->
     <parent link="base_center"/>
     <child link="right_hubcap"/>
     <axis xyz="0 1 0"/>

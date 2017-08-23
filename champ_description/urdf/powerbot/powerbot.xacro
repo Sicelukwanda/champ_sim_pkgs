@@ -104,7 +104,7 @@
 			<mesh filename="${mesh_directory}/swivel_support.stl" />
 		</geometry>
 		<material name="swivel">
-			<color rgba="0.1 0.1 0.1 1"/>
+			<color rgba="0.9 0.9 0.9 1"/>
 		</material>
 	</visual>
 	<collision>
@@ -118,7 +118,7 @@
 		<material value="Gazebo/Grey"/>
 	</gazebo>
 	<joint name="right_base_swivel_support_joint" type="fixed">
-		<origin xyz="-0.215 -0.2 -0.14" rpy="0 0 0"/>
+		<origin xyz="-0.215 -0.2 -0.091" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="right_swivel_support"/>
 	</joint>
@@ -150,11 +150,11 @@
 	<gazebo reference="swivel">
 		<material value="Gazebo/Grey"/>
 	</gazebo>
-	<joint name="right_base_swivel_joint" type="continuous">
-		<origin xyz="0 0 0" rpy="0 0 0"/>
-		<axis xyz="0 0 1"/>
+	<joint name="right_base_swivel_joint" type="fixed">
+		<origin xyz="0 0 -0.04855" rpy="0 0 0"/>
+		<!--<axis xyz="0 0 1"/>
 	    	<limit effort="100" velocity="100" k_velocity="0" />
-	    	<joint_properties damping="0.0" friction="0.0" />
+	    	<joint_properties damping="0.0" friction="0.0" />-->
 		<parent link="right_swivel_support"/>
 		<child link="right_swivel"/>
 	</joint>
@@ -245,7 +245,7 @@
 			<mesh filename="${mesh_directory}/swivel_support.stl" />
 		</geometry>
 		<material name="swivel">
-			<color rgba="0.1 0.1 0.1 1"/>
+			<color rgba="0.9 0.9 0.9 1"/>
 		</material>
 	</visual>
 	<collision>
@@ -259,7 +259,7 @@
 		<material value="Gazebo/Grey"/>
 	</gazebo>
 	<joint name="left_base_swivel_support_joint" type="fixed">
-		<origin xyz="-0.215 0.2 -0.14" rpy="0 0 0"/>
+		<origin xyz="-0.215 0.2 -0.091" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="left_swivel_support"/>
 	</joint>
@@ -292,11 +292,11 @@
 	<gazebo reference="swivel">
 		<material value="Gazebo/Grey"/>
 	</gazebo>
-	<joint name="left_base_swivel_joint" type="continuous">
-		<origin xyz="0 0 0" rpy="0 0 0"/>
-		<axis xyz="0 0 1"/>
+	<joint name="left_base_swivel_joint" type="fixed">
+		<origin xyz="0 0 -0.04855" rpy="0 0 0"/>
+	<!--	<axis xyz="0 0 1"/>
          <limit effort="100" velocity="100" k_velocity="0" />
-    	<joint_properties damping="0.0" friction="0.0" />
+    	<joint_properties damping="0.0" friction="0.0" />-->
 		<parent link="left_swivel_support"/>
 		<child link="left_swivel"/>
 	</joint>
@@ -399,11 +399,11 @@
 	      </collision>
 	</link>
 
-	<joint name="left_hub_joint" type="continuous">
-		<origin xyz="0.1 0.35 -0.0835" rpy="0 0 0"/>
-	        <anchor xyz="0 0 0"/>
+	<joint name="left_hub_joint" type="fixed">
+		<origin xyz="0.034 0.35 -0.0835" rpy="0 0 0"/>
+	        <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
-	        <joint_properties damping="0.0" friction="0.0" />
+	        <joint_properties damping="0.0" friction="0.0" />-->
 		<parent link="base_center"/>
 		<child link="left_hubcap"/>
 		<axis xyz="0 1 0"/>
@@ -470,11 +470,11 @@
 	      </collision>
 	</link>
 
-	<joint name="right_hub_joint" type="continuous">
-		<origin xyz="0.1 -0.35 -0.0835" rpy="0 0 0"/>
-	        <anchor xyz="0 0 0"/>
+	<joint name="right_hub_joint" type="fixed">
+		<origin xyz="0.034 -0.35 -0.0835" rpy="0 0 0"/>
+	        <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
-	        <joint_properties damping="0.0" friction="0.0" />
+	        <joint_properties damping="0.0" friction="0.0" />-->
 		<parent link="base_center"/>
 		<child link="right_hubcap"/>
 		<axis xyz="0 1 0"/>
@@ -514,52 +514,7 @@
 		<material value="Gazebo/Black"/>
 	</gazebo>
 
-<!--Wheels
-	<link name="right_hub">
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="${mesh_directory}/right_hubcap.stl" scale="1.5 1.5 1.5"/>
-			</geometry>
-			<material name="HubcapWhite">
-				<color rgba="1.0 1.0 1.0 1.0"/>
-			</material>
-		</visual>
-	</link>
-	<gazebo reference="right_hub">
-		<material value="Gazebo/Yellow"/>
-	</gazebo>
 
-	<joint name="right_hub_joint" type="fixed">
-		
-		<origin xyz="0.1 -0.30 ${bcz - 0.108}" rpy="0 0 0"/>
-		<parent link="base_center"/>
-		<child link="right_hub"/>
-		<axis xyz="0 1 0"/>
-	</joint>
-
-	<link name="right_wheel_joint">
-		<visual>
-			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="${mesh_directory}/right_wheel.stl" scale="1.5 1.5 1.5"/>
-			</geometry>
-			<material name="WheelBlack">
-				<color rgba="0.117 0.117 0.117 1"/>
-			</material>
-		</visual>
-	</link>
-
-	<joint name="right_wheel_joint" type="fixed">
-		<origin xyz="0 0 0" rpy="0 0 0"/>
-		<parent link="right_hub"/>
-		<child link="right_wheel_joint"/>
-	</joint>
-	<gazebo reference="right_wheel_joint">
-		<material value="Gazebo/Black"/>
-	</gazebo>
-
--->
 <!-- Front + Back Sonar
 	<link name="front_sonar">
 		<inertial>
