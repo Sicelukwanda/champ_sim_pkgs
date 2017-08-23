@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/mias_USAR/!svn/ver/2679/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs
+END
+powerbot.urdf.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/powerbot.urdf.xacro
+END
+materials.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/materials.xacro
+END
+powerbot.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/powerbot.xacro
+END
+powerbot_orig.2.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/powerbot_orig.2.xacro
+END
+asus_cal.xacro.bk
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/asus_cal.xacro.bk
+END
+powerbot.urdf
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/powerbot.urdf
+END
+powerbot_wheel.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/powerbot_wheel.xacro
+END
+wam_powerbot.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svnroot/mias_USAR/!svn/ver/2513/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/wam_powerbot.xacro
+END
+.powerbot_orig.2.xacro.kate-swp
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/.powerbot_orig.2.xacro.kate-swp
+END
+wam_powerbot.urdf
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/wam_powerbot.urdf
+END
+asus_cal.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svnroot/mias_USAR/!svn/ver/2679/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/asus_cal.xacro
+END
+asus.xacro
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/mias_USAR/!svn/ver/2513/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/defs/asus.xacro
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/WAM/src/wam_description/launch
+END
+display.launch
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/WAM/src/wam_description/launch/display.launch
+END
+urdf.rviz
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/WAM/src/wam_description/launch/urdf.rviz
+END
+display_hw.launch
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/WAM/src/wam_description/launch/display_hw.launch
+END

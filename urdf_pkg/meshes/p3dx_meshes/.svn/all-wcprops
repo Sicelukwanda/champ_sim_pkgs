@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes
+END
+chassis.stl
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/chassis.stl
+END
+left_wheel.stl
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/left_wheel.stl
+END
+front_rim.stl
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/front_rim.stl
+END
+right_hubcap.stl
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/right_hubcap.stl
+END
+right_wheel.stl
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/right_wheel.stl
+END
+back_sonar.stl
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/back_sonar.stl
+END
+center_hubcap.stl
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/center_hubcap.stl
+END
+top.stl
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/top.stl
+END
+center_wheel.stl
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/center_wheel.stl
+END
+back_rim.stl
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/back_rim.stl
+END
+Coordinates
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/Coordinates
+END
+swivel.stl
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/swivel.stl
+END
+front_sonar.stl
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/front_sonar.stl
+END
+left_hubcap.stl
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/p3dx_meshes/left_hubcap.stl
+END

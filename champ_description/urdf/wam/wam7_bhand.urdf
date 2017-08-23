@@ -951,5 +951,6 @@
       <inertia ixx="1E-6" ixy="0" ixz="0" iyy="1E-6" iyz="0" izz="1E-6"/>
     </inertial>
   </link>
+
 </robot>
 

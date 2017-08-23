@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/models
+END
+pioneer3at.blend
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/models/pioneer3at.blend
+END
+collada_urdf.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/models/collada_urdf.cpp
+END
+pioneer3dx.blend
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/models/pioneer3dx.blend
+END

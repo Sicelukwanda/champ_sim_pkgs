@@ -55,7 +55,7 @@
       </inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry name="top_geom">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/top.stl" scale="2 2 2"/>
+        <mesh filename="package://champ_description/meshes/p3dx_meshes/top.stl" />
       </geometry>
       <material name="TopBlack">
         <color rgba="0.038 0.038 0.038 1.0"/>
@@ -64,7 +64,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/top.stl" scale="2 2 2"/>
+        <mesh filename="package://champ_description/meshes/p3dx_meshes/top.stl"/>
       </geometry>
     </collision>
   </link>
@@ -76,7 +76,7 @@
     <visual name="base_visual">
       <origin rpy="0 0 0" xyz="-0.045 0 0.067"/>
       <geometry name="pioneer_geom">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/chassis.stl" scale="2 2 2"/>
+        <mesh filename="package://champ_description/meshes/p3dx_meshes/chassis.stl" />
       </geometry>
       <material name="ChassisYellow">
         <color rgba="0.715 0.583 0.210 1.0"/>
@@ -85,7 +85,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/chassis.stl" scale="2 2 2"/>
+        <mesh filename="package://champ_description/meshes/p3dx_meshes/chassis.stl" />
       </geometry>
     </collision>
   </link>

@@ -1,0 +1,1098 @@
+<?xml version="1.0"?>
+
+<robot name="wam_powerbot"
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+  <xacro:include filename="$(find urdf_pkg)/defs/powerbot_wheel.xacro"/>
+
+  <xacro:include filename="$(find urdf_pkg)/defs/asus.xacro"/>
+  <xacro:include filename="$(find urdf_pkg)/defs/asus_cal.xacro"/>
+  <xacro:asus_camera_model name="kinect" parent="base_center">
+       <origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>
+  </xacro:asus_camera_model>
+  
+<!--bcz = base_center z value -->
+ <xacro:property name="bcz" value="0.1315"/> <!-- 0.148 -->
+<!-- Chassis -->
+	<link name="base_center">
+		<visual name="base_visual">
+			<origin xyz="-0.045 0 ${bcz}" rpy="0 0 0"/>
+			<geometry name="pioneer_geom">
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/chassis.stl"  scale="2 2 2"/>
+			</geometry>
+			<material name="ChassisYellow">
+				<color rgba="0.715 0.583 0.210 1.0"/>
+			</material>
+		</visual>
+	</link>
+	<gazebo reference="base_center">
+		<material value="Gazebo/Red"/>
+	</gazebo>
+
+<!-- Top -->
+	<joint name="base_top_joint" type="fixed">
+		<!--origin xyz="-0.045 0 0.325" rpy="0 0 0"/-->
+		<origin xyz="-0.045 0 ${bcz + 0.177}" rpy="0 0 0"/>
+		<parent link="base_center"/>
+		<child link="top_plate"/>
+	</joint>
+
+	<link name="top_plate">
+		<visual>
+			<inertial>
+				<mass value="0.01"/>	
+				<origin xyz="0 0 0"/>
+				<inertia ixx="1" ixy="0" ixz="0"
+					 iyy="1" iyz="0"
+	 				izz="1"/>
+			</inertial>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry name="top_geom">
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/top.stl" scale="2 2 2"/>
+			</geometry>
+
+			<material name="TopBlack">
+					<color rgba="0.038 0.038 0.038 1.0"/>
+			</material>
+		</visual>
+	</link>
+	<gazebo reference="top_plate">
+		<material value="Gazebo/Black"/>
+	</gazebo>
+
+	
+<!-- ArmStuff -->
+
+
+<link name="arm_plate">
+	<inertial>
+		<mass value="0.01"/>	
+		<origin xyz="2 0 0"/>
+		<inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+	</inertial>
+	<visual>			
+		<geometry>
+			<box size="0.45 0.75 0.05"/>
+		</geometry>
+		<origin xyz="0.2 0 0.03" rpy="0 0 0"/>
+		<material name="brown">
+			<color rgba="0.8 0.4 0.3 1"/>
+		</material>
+	</visual>
+</link>
+
+<joint name="arm_plate_joint" type="fixed">
+	<parent link="top_plate"/>
+	<child link="arm_plate"/>
+	<origin xyz="0 0 0"/>
+</joint>
+
+
+
+
+	<link name="wam_link_base">
+		<inertial>
+			<mass value="20"/>
+			<origin xyz="0.0 0.0 0.0"/>
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+		</inertial>
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<mesh filename="package://wam_description/mesh/wambase.stl" scale="1.0 1.0 1.0"/>
+			</geometry>
+			<material name="Grey">
+				<color rgba="0.75 0.75 0.75 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+			<geometry>
+				<mesh filename="package://wam_description/mesh/wambase.stl" scale="1.0 1.0 1.0"/>
+			</geometry>
+			<contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+		</collision>
+	</link>
+  <joint name="wam_joint_footprint" type="fixed">
+    <origin rpy="0 0 0" xyz="0.22 0.0 0.4"/>
+    <child link="wam_link_base"/>
+    <parent link="arm_plate"/>
+  </joint>
+  <gazebo reference="wam_joint_footprint">
+    <selfCollide>true</selfCollide>
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <link name="wam_link_1">
+    <inertial>
+      <mass value="8.3936"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_1_visual">
+        <mesh filename="package://wam_description/mesh/wam1.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.75 0.75 0.75 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_1_collision">
+        <mesh filename="package://wam_description/mesh/wam1.stl" scale="1.0 1.0 1.0"/>
+        <!--                <box size="0.20 0.40 0.40"/> -->
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <gazebo reference="wam_link_1">
+    <material>Gazebo/Grey</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="wam_joint_1" type="revolute">
+    <parent link="wam_link_base"/>
+    <child link="wam_link_1"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="-2.6" upper="2.6" velocity="2.0"/>
+    <!-- <safety_controller k_velocity="0.5"/> -->
+    <dynamics damping="100"/>
+  </joint>
+  <transmission name="j1_transmission" type="pr2_mechanism_model/SimpleTransmission">
+    <actuator name="j1"/>
+    <joint name="wam_joint_1"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+    <!-- <pulsesPerRevolution>90000</pulsesPerRevolution> -->
+  </transmission>
+  <link name="wam_link_2">
+    <inertial>
+      <mass value="4.8487"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_2_visual">
+        <mesh filename="package://wam_description/mesh/wam2.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.75 0.75 0.75 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_2_collision">
+        <mesh filename="package://wam_description/mesh/wam2.stl" scale="1.0 1.0 1.0"/>
+        <!--                <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <gazebo reference="wam_link_2">
+    <material>Gazebo/Grey</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="wam_joint_2" type="revolute">
+    <parent link="wam_link_1"/>
+    <child link="wam_link_2"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="30" lower="-2.0" upper="2.0" velocity="2.0"/>
+    <!-- <safety_controller k_velocity="0.5"/> -->
+    <dynamics damping="100"/>
+  </joint>
+  <transmission name="j2_transmission" type="pr2_mechanism_model/SimpleTransmission">
+    <actuator name="j2"/>
+    <joint name="wam_joint_2"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+    <!-- <pulsesPerRevolution>90000</pulsesPerRevolution> -->
+  </transmission>
+  <link name="wam_link_3">
+    <inertial>
+      <mass value="1.7251"/>
+      <origin rpy="0 0 0" xyz="0 0 0.225"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_3_visual">
+        <mesh filename="package://wam_description/mesh/wam3.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.75 0.75 0.75 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_3_collision">
+        <mesh filename="package://wam_description/mesh/wam3.stl" scale="1.0 1.0 1.0"/>
+        <!--                <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <gazebo reference="wam_link_3">
+    <material>Gazebo/Grey</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="wam_joint_3" type="revolute">
+    <parent link="wam_link_2"/>
+    <child link="wam_link_3"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="-2.8" upper="2.8" velocity="2.0"/>
+    <!-- <safety_controller k_velocity="0.5"/> -->
+    <dynamics damping="100"/>
+  </joint>
+  <transmission name="j3_transmission" type="pr2_mechanism_model/SimpleTransmission">
+    <actuator name="j3"/>
+    <joint name="wam_joint_3"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+    <!-- <pulsesPerRevolution>90000</pulsesPerRevolution> -->
+  </transmission>
+  <link name="wam_link_4">
+    <inertial>
+      <mass value="2.0824"/>
+      <origin rpy="0 0 0" xyz="-0.045 -0.15 0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_4_visual">
+        <mesh filename="package://wam_description/mesh/wam4.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.75 0.75 0.75 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_4_collision">
+        <mesh filename="package://wam_description/mesh/wam4.stl" scale="1.0 1.0 1.0"/>
+        <!--                <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <gazebo reference="wam_link_4">
+    <material>Gazebo/Grey</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="wam_joint_4" type="revolute">
+    <parent link="wam_link_3"/>
+    <child link="wam_link_4"/>
+    <origin rpy="-1.57079632679 0 0" xyz="0.045 0.0 0.55"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="35" lower="-0.9" upper="3.14159265359" velocity="2.0"/>
+    <!-- <safety_controller k_velocity="0.5"/> -->
+    <dynamics damping="100"/>
+  </joint>
+  <transmission name="j4_transmission" type="pr2_mechanism_model/SimpleTransmission">
+    <actuator name="j4"/>
+    <joint name="wam_joint_4"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+    <!-- <pulsesPerRevolution>90000</pulsesPerRevolution> -->
+  </transmission>
+  <link name="wam_link_5">
+    <inertial>
+      <mass value="0.3067"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_5_visual">
+        <mesh filename="package://wam_description/mesh/wam5.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.75 0.75 0.75 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_5_collision">
+        <mesh filename="package://wam_description/mesh/wam5.stl" scale="1.0 1.0 1.0"/>
+        <!--                <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <gazebo reference="wam_link_5">
+    <material>Gazebo/Grey</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="wam_joint_5" type="revolute">
+    <parent link="wam_link_4"/>
+    <child link="wam_link_5"/>
+    <origin rpy="1.57079632679 0 0" xyz="-0.045 -0.3 0.0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="-4.76" upper="1.24" velocity="2.0"/>
+    <!-- <safety_controller k_velocity="0.5"/> -->
+    <dynamics damping="100"/>
+  </joint>
+  <transmission name="j5_transmission" type="pr2_mechanism_model/SimpleTransmission">
+    <actuator name="j5"/>
+    <joint name="wam_joint_5"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+    <!-- <pulsesPerRevolution>90000</pulsesPerRevolution> -->
+  </transmission>
+  <link name="wam_link_6">
+    <inertial>
+      <mass value="0.4278"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_6_visual">
+        <mesh filename="package://wam_description/mesh/wam6.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.75 0.75 0.75 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_6_collision">
+        <mesh filename="package://wam_description/mesh/wam6.stl" scale="1.0 1.0 1.0"/>
+        <!--                <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <gazebo reference="wam_link_6">
+    <material>Gazebo/Grey</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="wam_joint_6" type="revolute">
+    <parent link="wam_link_5"/>
+    <child link="wam_link_6"/>
+    <origin rpy="-1.57079632679 0 0" xyz="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="-1.6" upper="1.6" velocity="2.0"/>
+    <!-- <safety_controller k_velocity="0.5"/> -->
+    <dynamics damping="100"/>
+  </joint>
+  <transmission name="j6_transmission" type="pr2_mechanism_model/SimpleTransmission">
+    <actuator name="j6"/>
+    <joint name="wam_joint_6"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+    <!-- <pulsesPerRevolution>90000</pulsesPerRevolution> -->
+  </transmission>
+  <link name="wam_link_7">
+    <inertial>
+      <mass value="0.0557"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_7_visual">
+        <mesh filename="package://wam_description/mesh/wam7.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.75 0.75 0.75 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry name="wam_link_7_collision">
+        <mesh filename="package://wam_description/mesh/wam7.stl" scale="1.0 1.0 1.0"/>
+        <!--                <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <gazebo reference="wam_link_7">
+    <material>Gazebo/Grey</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+  <joint name="wam_joint_7" type="revolute">
+    <parent link="wam_link_6"/>
+    <child link="wam_link_7"/>
+    <origin rpy="1.57079632679 0 0" xyz="0.0 0.0 0.0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="-3.0" upper="3.0" velocity="2.0"/>
+    <!-- <safety_controller k_velocity="0.5"/> -->
+    <dynamics damping="100"/>
+  </joint>
+  <transmission name="j7_transmission" type="pr2_mechanism_model/SimpleTransmission">
+    <actuator name="j7"/>
+    <joint name="wam_joint_7"/>
+    <mechanicalReduction>1</mechanicalReduction>
+    <motorTorqueConstant>1</motorTorqueConstant>
+    <!-- <pulsesPerRevolution>90000</pulsesPerRevolution> -->
+  </transmission>
+  <link name="wam_link_tcp"/>
+  <joint name="wam_joint_tcp" type="fixed">
+    <parent link="wam_link_7"/>
+    <child link="wam_link_tcp"/>
+    <origin rpy="0 0 0" xyz="0.0 0.0 0.06"/>
+  </joint>
+  
+  <!-- The center of the interactive marker sits on the palm and defines the goal. -->
+  <link name="wam_link_palm"/>
+  <joint name="wam_joint_palm" type="fixed">
+    <parent link="wam_link_tcp"/>
+    <child  link="wam_link_palm"/>
+    <origin rpy="0 0 0" xyz="0 0 0.10"/><!-- 10 cm offset-->
+  </joint>
+  
+  <link name="bhand_base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_base.stl"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_base.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+    </collision>
+  </link>
+  <joint name="bhand_joint_fixed" type="fixed">
+    <parent link="wam_link_7"/>
+    <child link="bhand_base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0.0" upper="3.14159265359" velocity="2.0"/>
+  </joint>
+  <link name="bhand_finger1_link_1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link1.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link1.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_spread" type="revolute">
+    <parent link="bhand_base_link"/>
+    <child link="bhand_finger1_link_1"/>
+    <origin rpy="0 0 0" xyz="0 -0.025 0.133"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="30" lower="0.0" upper="3.14159265359" velocity="2.0"/>
+  </joint>
+  <link name="bhand_finger2_link_1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link1.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link1.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_spread_finger2" type="revolute">
+    <parent link="bhand_base_link"/>
+    <child link="bhand_finger2_link_1"/>
+    <origin rpy="0 0 0" xyz="0 0.025 0.133"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0.0" upper="3.14159265359" velocity="2.0"/>
+    <mimic joint="bhand_spread" multiplier="1.0" offset="0"/>
+  </joint>
+  <link name="bhand_finger3_link_1">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link1.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link1.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_finger3_joint_1" type="fixed">
+    <parent link="bhand_base_link"/>
+    <child link="bhand_finger3_link_1"/>
+    <origin rpy="0 0 3.14159265359" xyz="0 0 0.133"/>
+  </joint>
+  <link name="bhand_finger1_link_2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link2.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link2.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_finger1" type="revolute">
+    <parent link="bhand_finger1_link_1"/>
+    <child link="bhand_finger1_link_2"/>
+    <origin rpy="1.57079632679 0 0" xyz="0.050 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0.0" upper="2.44346095279" velocity="2.0" scale="0.5 0.5 0.5"/>
+  </joint>
+  <link name="bhand_finger1_link_3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link3.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link3.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_finger1_joint_3" type="revolute">
+    <parent link="bhand_finger1_link_2"/>
+    <child link="bhand_finger1_link_3"/>
+    <origin rpy="0 0 0.733038285838" xyz="0.070 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0" upper="0.837758040957" velocity="2.0"/>
+    <mimic joint="bhand_finger1" multiplier="0.342857142857" offset="0"/>
+  </joint>
+  <link name="bhand_finger2_link_2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link2.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link2.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_finger2" type="revolute">
+    <parent link="bhand_finger2_link_1"/>
+    <child link="bhand_finger2_link_2"/>
+    <origin rpy="1.57079632679 0 0" xyz="0.050 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0.0" upper="2.44346095279" velocity="2.0"/>
+  </joint>
+  <link name="bhand_finger2_link_3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link3.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link3.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_finger2_joint_3" type="revolute">
+    <parent link="bhand_finger2_link_2"/>
+    <child link="bhand_finger2_link_3"/>
+    <origin rpy="0 0 0.733038285838" xyz="0.070 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0" upper="0.837758040957" velocity="2.0"/>
+    <mimic joint="bhand_finger2" multiplier="0.342857142857" offset="0"/>
+  </joint>
+  <link name="bhand_finger3_link_2">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link2.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link2.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_finger3" type="revolute">
+    <parent link="bhand_finger3_link_1"/>
+    <child link="bhand_finger3_link_2"/>
+    <origin rpy="1.57079632679 0 0" xyz="0.050 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0.0" upper="2.44346095279" velocity="2.0" scale="0.5 0.5 0.5"/>
+  </joint>
+  <link name="bhand_finger3_link_3">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link3.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+      <material name="Grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wam_description/mesh/bh_link3.stl" scale="0.5 0.5 0.5"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bhand_finger3_joint_3" type="revolute">
+    <parent link="bhand_finger3_link_2"/>
+    <child link="bhand_finger3_link_3"/>
+    <origin rpy="0 0 0.733038285838" xyz="0.070 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="30" lower="0" upper="0.837758040957" velocity="2.0"/>
+    <mimic joint="bhand_finger3" multiplier="0.342857142857" offset="0"/>
+  </joint>
+	
+
+<!-- Swivel2 -->
+
+	<link name="swivel2">
+		<inertial>
+			<mass value="0.1"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="0.01" ixy="0" ixz="0"
+				 iyy="0.01" iyz="0" izz="0.01"/>
+  	 	</inertial>
+	<visual name="base_visual">
+		<origin xyz="-0.26 -0.25 -0.08" rpy="0 0 0"/>
+		<geometry name="pioneer_geom">
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/swivel.stl" scale="1.5 1.5 1.5"/>
+		</geometry>
+		<material name="swivel">
+			<color rgba="0.5 0.5 0.5 1"/>
+		</material>
+	</visual>
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="0 0 0"/>
+		</geometry>
+	</collision>
+	</link>
+	<gazebo reference="swivel2">
+		<material value="Gazebo/Grey"/>
+	</gazebo>
+	<joint name="base_swivel_joint2" type="continuous">
+		<!--origin xyz="0.045 0 0.055" rpy="0 0 0"/-->
+		<origin xyz="0.045 0 ${bcz - 0.093}" rpy="0 0 0"/>
+		<anchor xyz="0 0 0"/>
+    	<limit effort="100" velocity="100" k_velocity="0" />
+    	<joint_properties damping="0.0" friction="0.0" />
+		<parent link="base_center"/>
+		<child link="swivel2"/>
+	</joint>
+
+<!-- Center Wheel + Hubcap -->
+	<link name="center_hubcap2">
+		<inertial>
+			<mass value="0.01"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
+				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+  	 	</inertial>
+	<visual name="base_visual">
+		<origin xyz="-0.26 -0.25 -0.08" rpy="0 0 0"/>
+		<geometry name="pioneer_geom">
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/center_hubcap.stl" scale="1.5 1.5 1.5"/>
+		</geometry>
+		<material name="swivel">
+			<color rgba="0.5 0.5 0.5 1"/>
+		</material>
+	</visual>
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="0 0 0"/>
+		</geometry>
+	</collision>
+	</link>
+	<gazebo reference="center_hubcap2">
+		<material value="Gazebo/Grey"/>
+	</gazebo>
+
+	<joint name="swivel_hubcap_joint2" type="continuous">
+		<origin xyz="-0.026 0 -0.016" rpy="0 0 0"/>
+		<axis xyz="0 1 0"/>
+		<anchor xyz="0 0 0"/>
+    <limit effort="100" velocity="100" k_velocity="0" />
+    <joint_properties damping="0.0" friction="0.0" />
+	  <parent link="swivel2"/>
+		<child link="center_wheel2"/>
+	</joint>
+
+	<link name="center_wheel2">
+		<inertial>
+			<mass value="0.1"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
+				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+  	 	</inertial>
+	<visual name="base_visual">
+		<origin xyz="-0.26 -0.25 -0.08" rpy="0 0 0"/>
+		<geometry name="pioneer_geom">
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/center_wheel.stl" scale="1.5 1.5 1.5"/>
+		</geometry>
+		<material name="WheelBlack">
+			<color rgba="0.117 0.117 0.117 1"/>
+		</material>
+	</visual>
+	<collision>
+		<origin xyz="0 0 0" rpy=" 0 0 0"/>
+		<geometry>
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/center_wheel.stl" scale="1.5 1.5 1.5"/>
+			<cylinder radius="0.0375" length="0.01"/>
+		</geometry>
+	</collision>
+	</link>
+	<gazebo reference="left_hub2">
+		<material value="Gazebo/Yellow"/>
+	</gazebo>
+
+	<joint name="center_wheel_joint2" type="fixed">
+		<origin xyz="-0.0035 0 -0.001" rpy="0 0 0"/>
+		<parent link="center_wheel2"/>
+		<child link="center_hubcap2"/>
+	</joint>
+
+
+
+  <!-- Swivel -->
+
+	<link name="swivel">
+		<inertial>
+			<mass value="0.1"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="0.01" ixy="0" ixz="0"
+				 iyy="0.01" iyz="0" izz="0.01"/>
+  	 	</inertial>
+	<visual name="base_visual">
+		<origin xyz="-0.26 0.25 -0.08" rpy="0 0 0"/>
+		<geometry name="pioneer_geom">
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/swivel.stl" scale="1.5 1.5 1.5"/>
+		</geometry>
+		<material name="swivel">
+			<color rgba="0.5 0.5 0.5 1"/>
+		</material>
+	</visual>
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="0 0 0"/>
+		</geometry>
+	</collision>
+	</link>
+	<gazebo reference="swivel">
+		<material value="Gazebo/Grey"/>
+	</gazebo>
+	<joint name="base_swivel_joint" type="continuous">
+		<!--origin xyz="0.045 0 0.055" rpy="0 0 0"/-->
+		<origin xyz="0.045 0 ${bcz - 0.093}" rpy="0 0 0"/>
+		<anchor xyz="0 0 0"/>
+    	<limit effort="100" velocity="100" k_velocity="0" />
+    	<joint_properties damping="0.0" friction="0.0" />
+		<parent link="base_center"/>
+		<child link="swivel"/>
+	</joint>
+
+<!-- Center Wheel + Hubcap -->
+	<link name="center_hubcap">
+		<inertial>
+			<mass value="0.01"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
+				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+  	 	</inertial>
+	<visual name="base_visual">
+		<origin xyz="-0.26 0.25 -0.08" rpy="0 0 0"/>
+		<geometry name="pioneer_geom">
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/center_hubcap.stl" scale="1.5 1.5 1.5"/>
+		</geometry>
+		<material name="swivel">
+			<color rgba="0.5 0.5 0.5 1"/>
+		</material>
+	</visual>
+	<collision>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<geometry>
+			<box size="0 0 0"/>
+		</geometry>
+	</collision>
+	</link>
+	<gazebo reference="center_hubcap">
+		<material value="Gazebo/Grey"/>
+	</gazebo>
+
+	<joint name="swivel_hubcap_joint" type="continuous">
+		<origin xyz="-0.026 0 -0.016" rpy="0 0 0"/>
+		<axis xyz="0 1 0"/>
+		<anchor xyz="0 0 0"/>
+    <limit effort="100" velocity="100" k_velocity="0" />
+    <joint_properties damping="0.0" friction="0.0" />
+	  <parent link="swivel"/>
+		<child link="center_wheel"/>
+	</joint>
+
+	<link name="center_wheel">
+		<inertial>
+			<mass value="0.1"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
+				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+  	 	</inertial>
+	<visual name="base_visual">
+		<origin xyz="-0.26 0.25 -0.08" rpy="0 0 0"/>
+		<geometry name="pioneer_geom">
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/center_wheel.stl" scale="1.5 1.5 1.5"/>
+		</geometry>
+		<material name="WheelBlack">
+			<color rgba="0.117 0.117 0.117 1"/>
+		</material>
+	</visual>
+	<collision>
+		<origin xyz="0 0 0" rpy=" 0 0 0"/>
+		<geometry>
+			<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/center_wheel.stl" scale="1.5 1.5 1.5"/>
+			<cylinder radius="0.0375" length="0.01"/>
+		</geometry>
+	</collision>
+	</link>
+	<gazebo reference="left_hub">
+		<material value="Gazebo/Yellow"/>
+	</gazebo>
+
+	<joint name="center_wheel_joint" type="fixed">
+		<origin xyz="-0.0035 0 -0.001" rpy="0 0 0"/>
+		<parent link="center_wheel"/>
+		<child link="center_hubcap"/>
+	</joint>
+
+	
+	<!--Wheels-->
+
+
+	<link name="left_hub">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/left_hubcap.stl" scale="1.5 1.5 1.5"/>
+			</geometry>
+			<material name="HubcapWhite">
+				<color rgba="1.0 1.0 1.0 1.0"/>
+			</material>
+		</visual>
+	</link>
+
+	<joint name="left_hub_joint" type="fixed">
+		<!--origin xyz="0.1 0.30 0.04" rpy="0 0 0"/-->
+		<origin xyz="0.1 0.30 ${bcz - 0.108}" rpy="0 0 0"/>
+		<parent link="base_center"/>
+		<child link="left_hub"/>
+		<axis xyz="0 1 0"/>
+	</joint>
+
+	<link name="left_wheel_joint">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/left_wheel.stl" scale="1.5 1.5 1.5"/>
+			</geometry>
+			<material name="WheelBlack">
+				<color rgba="0.117 0.117 0.117 1"/>
+			</material>
+		</visual>
+	</link>
+
+	<joint name="left_wheel_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<parent link="left_hub"/>
+		<child link="left_wheel_joint"/>
+	</joint>
+	
+	<gazebo reference="left_wheel_joint">
+		<material value="Gazebo/Black"/>
+	</gazebo>
+
+	<link name="right_hub">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/right_hubcap.stl" scale="1.5 1.5 1.5"/>
+			</geometry>
+			<material name="HubcapWhite">
+				<color rgba="1.0 1.0 1.0 1.0"/>
+			</material>
+		</visual>
+	</link>
+	<gazebo reference="right_hub">
+		<material value="Gazebo/Yellow"/>
+	</gazebo>
+
+	<joint name="right_hub_joint" type="fixed">
+		<!--origin xyz="0.1 -0.30 0.04" rpy="0 0 0"/-->
+		<origin xyz="0.1 -0.30 ${bcz - 0.108}" rpy="0 0 0"/>
+		<parent link="base_center"/>
+		<child link="right_hub"/>
+		<axis xyz="0 1 0"/>
+	</joint>
+
+	<link name="right_wheel_joint">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/right_wheel.stl" scale="1.5 1.5 1.5"/>
+			</geometry>
+			<material name="WheelBlack">
+				<color rgba="0.117 0.117 0.117 1"/>
+			</material>
+		</visual>
+	</link>
+
+	<joint name="right_wheel_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<parent link="right_hub"/>
+		<child link="right_wheel_joint"/>
+	</joint>
+	<gazebo reference="right_wheel_joint">
+		<material value="Gazebo/Black"/>
+	</gazebo>
+
+<!-- Front + Back Sonar -->
+	<link name="front_sonar">
+		<inertial>
+			<mass value="0.0001"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="1" ixy="0" ixz="0"
+				 iyy="1" iyz="0" izz="1"/>
+		</inertial>
+		<visual name="base_visual">
+			<origin xyz="-0.17 0 0.065" rpy="0 0 0"/>
+			<geometry name="pioneer_geom">
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/front_sonar.stl" scale="2 2 2"/>
+			</geometry>
+			<material name="SonarBrown">
+				<color rgba="0.206 0.166 0.006 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0 0 0"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="front_sonar">
+		<material value="Gazebo/Yellow"/>
+	</gazebo>
+
+	<joint name="base_front_joint" type="fixed">
+		<!--origin xyz="-0.198 0 0.208" rpy="0 0 0"/-->
+		<origin xyz="-0.198 0 ${bcz + 0.06}" rpy="0 0 0"/>
+		<parent link="base_center"/>
+		<child link="front_sonar"/>
+	</joint>
+
+	<link name="back_sonar">
+		<inertial>
+			<mass value="0.0001"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="1" ixy="0" ixz="0"
+				 iyy="1" iyz="0" izz="1"/>
+		</inertial>
+		<visual name="back_sonar_vis">
+			<origin xyz="0.17 0 0.064" rpy="0 0 0"/>
+			<geometry name="pioneer_geom">
+				<mesh filename="package://urdf_pkg/meshes/p3dx_meshes/back_sonar.stl" scale="2 2 2"/>
+			</geometry>
+			<material name="SonarBrown">
+				<color rgba="0.206 0.166 0.006 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0 0 0"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="back_sonar">
+		<material value="Gazebo/Yellow"/>
+	</gazebo>
+
+	<joint name="base_back_joint" type="fixed">
+		<!--origin xyz="0.109 0 0.209" rpy="0 0 0"/-->
+		<origin xyz="0.109 0 ${bcz + 0.061}" rpy="0 0 0"/>
+		<parent link="base_center"/>
+		<child link="back_sonar"/>
+	</joint>
+
+<xacro:macro name="p3at_gazebo_ext">
+
+<gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <updateRate>100.0</updateRate>
+    <robotNamespace>/</robotNamespace>
+    <leftJoint>base_right_wheel_joint</leftJoint>
+    <rightJoint>base_left_wheel_joint</rightJoint>
+    <wheelSeparation>0.39</wheelSeparation>
+    <wheelDiameter>0.15</wheelDiameter>
+    <robotBaseFrame>base_center</robotBaseFrame>
+    <torque>200</torque>
+    <topicName>cmd_vel</topicName>
+  </plugin>
+</gazebo>
+
+</xacro:macro>
+
+</robot>

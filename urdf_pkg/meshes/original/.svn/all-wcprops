@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original
+END
+body.stl
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/body.stl
+END
+chassis_top.stl
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/chassis_top.stl
+END
+pioneer3dx.stl
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/pioneer3dx.stl
+END
+caster_mount.stl
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/caster_mount.stl
+END
+sonars.stl
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/sonars.stl
+END
+wheels-center.stl
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/wheels-center.stl
+END
+caster_plate.stl
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/caster_plate.stl
+END
+tires.stl
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/tires.stl
+END
+top_plate.stl
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svnroot/mias_USAR/!svn/ver/2150/powerbot/trunk/GUI/powerbot_urdf/src/urdf_pkg/meshes/original/top_plate.stl
+END
