@@ -215,3 +215,26 @@ Principal axes are :
 axis momenta are :
 | 0.000000 0.000000 0.000000 |
 
+swivel_support
+Mesh Bounding Box Size 0.086743 0.004703 0.086743
+Mesh Bounding Box Diag 0.122763 
+Mesh Bounding Box min -0.043371 -0.004703 -0.045723
+Mesh Bounding Box max 0.043371 0.000000 0.041020
+Mesh Surface Area is 0.012553
+Mesh Total Len of 318 Edges is 5.865047 Avg Len 0.018444
+Mesh Total Len of 318 Edges is 5.865047 Avg Len 0.018444 (including faux edges))
+Thin shell (faces) barycenter: -0.000000 -0.002351 -0.002351
+Vertices barycenter 0.000000 -0.002351 -0.002351
+Mesh Volume is 0.000027
+Center of Mass is 0.000000 -0.002351 -0.002351
+Inertia Tensor is :
+| 0.000000 0.000000 0.000000 |
+| 0.000000 0.000000 -0.000000 |
+| 0.000000 -0.000000 0.000000 |
+Principal axes are :
+| 0.999904 -0.000000 -0.013875 |
+| 0.013875 0.000000 0.999904 |
+| 0.000000 1.000000 -0.000000 |
+axis momenta are :
+| 0.000000 0.000000 0.000000 |
+
