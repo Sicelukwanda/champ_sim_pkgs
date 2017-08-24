@@ -6,6 +6,34 @@
 <robot name="powerbot" xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" xmlns:xacro="http://ros.org/wiki/xacro">
   <!--<xacro:include filename="$(find p2os_urdf)/defs/materials.xacro"/>-->
   <!-- 0.148 -->
+  <!-- Brown arm plate -->
+  <link name="arm_plate">
+    <inertial>
+      <mass value="0.01"/>
+      <origin rpy="0 0 0" xyz="0.2 0 0.03"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.45 0.75 0.05"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.2 0 0.03"/>
+      <material name="brown">
+        <color rgba="0.8 0.4 0.3 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.2 0 0.03"/>
+      <geometry>
+        <box size="0.45 0.75 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="arm_plate_joint" type="fixed">
+    <parent link="top_plate"/>
+    <child link="arm_plate"/>
+    <origin xyz="0 0 0"/>
+  </joint>
   <!-- Chassis -->
   <link name="base_center">
     <inertial>
