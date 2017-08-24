@@ -7,6 +7,14 @@
 	xmlns:xacro="http://ros.org/wiki/xacro">
 
 
+ <!-- robot name -->
+  <xacro:macro name="powerbot" params="prefix parent_link xyz rpy">
+    <joint name ="${prefix}/world_joint" type="planar">
+      <parent link="${parent_link}"/>
+      <child link="base_center"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+  </xacro:macro>
 
   <!-- Include powerbot wheels -->
   <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot_wheel.xacro"/>
@@ -220,7 +228,7 @@
 		<axis xyz="0 1 0"/>
 		<anchor xyz="0 0 0"/>
     <limit effort="100" velocity="100" k_velocity="0" />
-    <joint_properties damping="0.0" friction="0.0" />
+    <joint_properties damping="7.0" friction="0.0" />
 	  <parent link="right_swivel"/>
 		<child link="right_swivel_hubcap"/>
 	</joint>
@@ -362,7 +370,7 @@
 		<axis xyz="0 1 0"/>
 		<anchor xyz="0 0 0"/>
     <limit effort="100" velocity="100" k_velocity="0" />
-    <joint_properties damping="0.0" friction="0.0" />
+    <joint_properties damping="7.0" friction="0.0" />
 	  <parent link="left_swivel"/>
 		<child link="left_swivel_hubcap"/>
 	</joint>
@@ -428,7 +436,7 @@
 	</link>
 
 	<joint name="left_hub_joint" type="fixed">
-		<origin xyz="0.034 0.35 -0.0835" rpy="0 0 0"/>
+		<origin xyz="0.084 0.35 -0.0835" rpy="0 0 0"/>
 	        <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
 	        <joint_properties damping="0.0" friction="0.0" />-->
@@ -499,7 +507,7 @@
 	</link>
 
 	<joint name="right_hub_joint" type="fixed">
-		<origin xyz="0.034 -0.35 -0.0835" rpy="0 0 0"/>
+		<origin xyz="0.084 -0.35 -0.0835" rpy="0 0 0"/>
 	        <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
 	        <joint_properties damping="0.0" friction="0.0" />-->

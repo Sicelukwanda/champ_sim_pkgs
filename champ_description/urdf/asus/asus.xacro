@@ -34,7 +34,7 @@
         <collision>
           <origin xyz="0 0 0" rpy="0 0 0" />
           <geometry>
-            <box size="0.06 0.25 0.05"/>   <!--box size="0.035 0.185 0.025"/-->
+           <mesh filename="${asus_mesh_directory}/asus_camera_simple.dae"/>  <!--box size="0.035 0.185 0.025"/-->
           </geometry>
         </collision>
       </link>

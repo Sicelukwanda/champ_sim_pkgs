@@ -189,7 +189,7 @@
     <axis xyz="0 1 0"/>
     <anchor xyz="0 0 0"/>
     <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="7.0" friction="0.0"/>
     <parent link="right_swivel"/>
     <child link="right_swivel_hubcap"/>
   </joint>
@@ -319,7 +319,7 @@
     <axis xyz="0 1 0"/>
     <anchor xyz="0 0 0"/>
     <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="7.0" friction="0.0"/>
     <parent link="left_swivel"/>
     <child link="left_swivel_hubcap"/>
   </joint>
@@ -345,7 +345,7 @@
       </geometry>
     </collision>
   </link>
-  <gazebo reference="swivel_wheel">
+  <gazebo reference="right_wheel">
     <material value="Gazebo/Black"/>
   </gazebo>
   <joint name="left_swivel_wheel_hubcap_joint" type="fixed">
@@ -377,7 +377,7 @@
     </collision>
   </link>
   <joint name="left_hub_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.034 0.35 -0.0835"/>
+    <origin rpy="0 0 0" xyz="0.084 0.35 -0.0835"/>
     <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
 	        <joint_properties damping="0.0" friction="0.0" />-->
@@ -439,7 +439,7 @@
     </collision>
   </link>
   <joint name="right_hub_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.034 -0.35 -0.0835"/>
+    <origin rpy="0 0 0" xyz="0.084 -0.35 -0.0835"/>
     <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
 	        <joint_properties damping="0.0" friction="0.0" />-->
