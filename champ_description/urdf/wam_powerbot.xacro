@@ -27,7 +27,7 @@
 <!-- ArmStuff -->
 
 <!-- BHand -->
-<xacro:bhand prefix="wam/bhand" parent_link="wam/wrist_palm_link" xyz="0 0 0.1" rpy="0 0 0"/>
+<xacro:bhand prefix="wam/bhand" parent_link="wam/wrist_palm_link" xyz="0 0 0.06" rpy="0 0 0"/>
 
 <!-- 7-DOF Wam on top of top plate-->
 <xacro:wam_7dof prefix="wam" parent_link="arm_plate" xyz="0.22 0.0 0.05" rpy="0 0 0" />

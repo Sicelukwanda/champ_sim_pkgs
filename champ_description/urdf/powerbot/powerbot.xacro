@@ -162,10 +162,10 @@
 
 	<link name="right_swivel">
 		<inertial>
-			<mass value="0.1"/>	
+			<mass value="2.0"/>	
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<inertia ixx="0.01" ixy="0" ixz="0"
-				 iyy="0.01" iyz="0" izz="0.01"/>
+			<inertia ixx="0.001" ixy="0" ixz="0"
+				 iyy="0.001" iyz="0" izz="0.001"/>
   	 	</inertial>
 	<visual name="right_swivel_visual">
 		<origin xyz="0 0 0" rpy="0 0 0"/>
@@ -186,11 +186,11 @@
 	<gazebo reference="swivel">
 		<material value="Gazebo/Grey"/>
 	</gazebo>
-	<joint name="right_base_swivel_joint" type="fixed">
+	<joint name="right_base_swivel_joint" type="continuous">
 		<origin xyz="0 0 -0.04855" rpy="0 0 0"/>
-		<!--<axis xyz="0 0 1"/>
+		<axis xyz="0 0 1"/>
 	    	<limit effort="100" velocity="100" k_velocity="0" />
-	    	<joint_properties damping="0.0" friction="0.0" />-->
+	    	<joint_properties damping="7.0" friction="0.7" />
 		<parent link="right_swivel_support"/>
 		<child link="right_swivel"/>
 	</joint>
@@ -200,8 +200,8 @@
 		<inertial>
 			<mass value="0.01"/>	
 			<origin xyz="0 0 0"/>
-			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
-				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+			<inertia ixx="0.00012411765597" ixy="0.0" ixz="0.0"
+				 iyy="0.00015218160428" iyz="0.0" izz="0.00011763977943"/>
   	 	</inertial>
 	<visual name="right_swivel_hubcap">
 		<origin xyz="0 0 0" rpy="0 0 0"/>
@@ -228,17 +228,17 @@
 		<axis xyz="0 1 0"/>
 		<anchor xyz="0 0 0"/>
     <limit effort="100" velocity="100" k_velocity="0" />
-    <joint_properties damping="7.0" friction="0.0" />
+    <joint_properties damping="7.0" friction="0.7" />
 	  <parent link="right_swivel"/>
 		<child link="right_swivel_hubcap"/>
 	</joint>
 
 	<link name="right_swivel_wheel">
 		<inertial>
-			<mass value="0.1"/>	
+			<mass value="2.0"/>	
 			<origin xyz="0 0 0"/>
-			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
-				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+			<inertia ixx="0.00012411765597" ixy="0.0" ixz="0.0"
+				 iyy="0.00015218160428" iyz="0.0" izz="0.00011763977943"/>
   	 	</inertial>
 	<visual name="right_swivel_wheel">
 		<origin xyz="0 0 0" rpy="0 0 0"/>
@@ -252,7 +252,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy=" ${-3.1415927/2} 0 0"/>
 		<geometry>
-			<cylinder radius="0.0669" length="0.0422"/>
+			<cylinder radius="0.0468" length="0.0422"/>
 		</geometry>
 	</collision>
 	</link>
@@ -304,10 +304,10 @@
 
 	<link name="left_swivel">
 		<inertial>
-			<mass value="0.1"/>	
+			<mass value="2.0"/>	
 			<origin xyz="0 0 0" rpy="0 0 0"/>
-			<inertia ixx="0.01" ixy="0" ixz="0"
-				 iyy="0.01" iyz="0" izz="0.01"/>
+			<inertia ixx="0.001" ixy="0" ixz="0"
+				 iyy="0.001" iyz="0" izz="0.001"/>
   	 	</inertial>
 	<visual name="left_swivel_visual">
 		<origin xyz="0 0 0" rpy="0 0 0"/>
@@ -328,11 +328,11 @@
 	<gazebo reference="swivel">
 		<material value="Gazebo/Grey"/>
 	</gazebo>
-	<joint name="left_base_swivel_joint" type="fixed">
+	<joint name="left_base_swivel_joint" type="continuous">
 		<origin xyz="0 0 -0.04855" rpy="0 0 0"/>
-	<!--	<axis xyz="0 0 1"/>
+		<axis xyz="0 0 1"/>
          <limit effort="100" velocity="100" k_velocity="0" />
-    	<joint_properties damping="0.0" friction="0.0" />-->
+    	<joint_properties damping="7.0" friction="0.7" />
 		<parent link="left_swivel_support"/>
 		<child link="left_swivel"/>
 	</joint>
@@ -342,8 +342,8 @@
 		<inertial>
 			<mass value="0.01"/>	
 			<origin xyz="0 0 0"/>
-			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
-				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+			<inertia ixx="0.00012411765597" ixy="0.0" ixz="0.0"
+				 iyy="0.00015218160428" iyz="0.0" izz="0.00011763977943"/>
   	 	</inertial>
 	<visual name="left_swivel_hubcap">
 		<origin xyz="0 0 0" rpy="0 0 0"/>
@@ -370,17 +370,17 @@
 		<axis xyz="0 1 0"/>
 		<anchor xyz="0 0 0"/>
     <limit effort="100" velocity="100" k_velocity="0" />
-    <joint_properties damping="7.0" friction="0.0" />
+    <joint_properties damping="7.0" friction="0.7" />
 	  <parent link="left_swivel"/>
 		<child link="left_swivel_hubcap"/>
 	</joint>
 
 	<link name="left_swivel_wheel">
 		<inertial>
-			<mass value="0.1"/>	
+			<mass value="2.0"/>	
 			<origin xyz="0 0 0"/>
-			<inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983"
-				 iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
+			<inertia ixx="0.00012411765597" ixy="0.0" ixz="0.0"
+				 iyy="0.00015218160428" iyz="0.0" izz="0.00011763977943"/>
   	 	</inertial>
 	<visual name="left_swivel_wheel">
 		<origin xyz="0 0 0" rpy="0 0 0"/>
@@ -394,7 +394,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy=" ${-3.1415927/2} 0 0"/>
 		<geometry>
-			<cylinder radius="0.0669" length="0.0422"/>
+			<cylinder radius="0.0468" length="0.0422"/>
 		</geometry>
 	</collision>
 	</link>
@@ -435,11 +435,11 @@
 	      </collision>
 	</link>
 
-	<joint name="left_hub_joint" type="fixed">
+	<joint name="left_hub_joint" type="continuous">
 		<origin xyz="0.084 0.35 -0.0835" rpy="0 0 0"/>
-	        <!--<anchor xyz="0 0 0"/>
+	        <anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
-	        <joint_properties damping="0.0" friction="0.0" />-->
+	        <joint_properties damping="7.0" friction="2.0" />
 		<parent link="base_center"/>
 		<child link="left_hubcap"/>
 		<axis xyz="0 1 0"/>
@@ -447,7 +447,7 @@
 
 	<link name="left_wheel">
 	      <inertial>
-		<mass value="1.25"/> 
+		<mass value="5.25"/> 
 		<origin xyz="0 0 0"/>
 		<inertia ixx="0.012411765597" ixy="0" ixz="0"
 		         iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
@@ -506,11 +506,11 @@
 	      </collision>
 	</link>
 
-	<joint name="right_hub_joint" type="fixed">
+	<joint name="right_hub_joint" type="continuous">
 		<origin xyz="0.084 -0.35 -0.0835" rpy="0 0 0"/>
-	        <!--<anchor xyz="0 0 0"/>
+	        <anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
-	        <joint_properties damping="0.0" friction="0.0" />-->
+	        <joint_properties damping="7.0" friction="2.0" />
 		<parent link="base_center"/>
 		<child link="right_hubcap"/>
 		<axis xyz="0 1 0"/>
@@ -518,7 +518,7 @@
 
 	<link name="right_wheel">
 	      <inertial>
-		<mass value="1.25"/> 
+		<mass value="5.25"/> 
 		<origin xyz="0 0 0"/>
 		<inertia ixx="0.012411765597" ixy="0" ixz="0"
 		         iyy="0.015218160428" iyz="0" izz="0.011763977943"/>

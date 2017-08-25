@@ -257,7 +257,7 @@
   <!-- Chassis -->
   <link name="base_center">
     <inertial>
-      <mass value="120.0"/>
+      <mass value="200.0"/>
       <origin xyz="-0.045 0 0.067"/>
       <inertia ixx="0.4255" ixy="0.0" ixz="0.0" iyy="0.4955" iyz="0.0" izz="0.7441"/>
     </inertial>
@@ -596,18 +596,18 @@
       </geometry>
     </collision>
   </link>
-  <joint name="left_hub_joint" type="fixed">
+  <joint name="left_hub_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.084 0.35 -0.0835"/>
-    <!--<anchor xyz="0 0 0"/>
-	        <limit effort="100" velocity="100" />
-	        <joint_properties damping="0.0" friction="0.0" />-->
+    <anchor xyz="0 0 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
     <parent link="base_center"/>
     <child link="left_hubcap"/>
     <axis xyz="0 1 0"/>
   </joint>
   <link name="left_wheel">
     <inertial>
-      <mass value="1.25"/>
+      <mass value="10.25"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.012411765597" ixy="0" ixz="0" iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
     </inertial>
@@ -658,18 +658,18 @@
       </geometry>
     </collision>
   </link>
-  <joint name="right_hub_joint" type="fixed">
+  <joint name="right_hub_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.084 -0.35 -0.0835"/>
-    <!--<anchor xyz="0 0 0"/>
-	        <limit effort="100" velocity="100" />
-	        <joint_properties damping="0.0" friction="0.0" />-->
+    <anchor xyz="0 0 0"/>
+    <limit effort="100" velocity="100"/>
+    <joint_properties damping="0.0" friction="0.0"/>
     <parent link="base_center"/>
     <child link="right_hubcap"/>
     <axis xyz="0 1 0"/>
   </joint>
   <link name="right_wheel">
     <inertial>
-      <mass value="1.25"/>
+      <mass value="10.25"/>
       <origin xyz="0 0 0"/>
       <inertia ixx="0.012411765597" ixy="0" ixz="0" iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
     </inertial>
