@@ -153,8 +153,7 @@
   <joint name="right_base_swivel_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0 0 -0.04855"/>
     <axis xyz="0 0 1"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="7.0" friction="0.7"/>
+    <joint_properties damping="9.0"/>
     <parent link="right_swivel_support"/>
     <child link="right_swivel"/>
   </joint>
@@ -188,8 +187,7 @@
     <origin rpy="0 0 0" xyz="-0.036 0 -0.029"/>
     <axis xyz="0 1 0"/>
     <anchor xyz="0 0 0"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="7.0" friction="0.7"/>
+    <joint_properties damping="9.0"/>
     <parent link="right_swivel"/>
     <child link="right_swivel_hubcap"/>
   </joint>
@@ -213,6 +211,14 @@
       <geometry>
         <cylinder length="0.0422" radius="0.0468"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.8</mu>
+            <mu2>0.8</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <gazebo reference="swivel_wheel">
@@ -283,8 +289,7 @@
   <joint name="left_base_swivel_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0 0 -0.04855"/>
     <axis xyz="0 0 1"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="7.0" friction="0.7"/>
+    <joint_properties damping="9.0"/>
     <parent link="left_swivel_support"/>
     <child link="left_swivel"/>
   </joint>
@@ -318,8 +323,7 @@
     <origin rpy="0 0 0" xyz="-0.036 0 -0.029"/>
     <axis xyz="0 1 0"/>
     <anchor xyz="0 0 0"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="7.0" friction="0.7"/>
+    <joint_properties damping="9.0"/>
     <parent link="left_swivel"/>
     <child link="left_swivel_hubcap"/>
   </joint>
@@ -343,6 +347,14 @@
       <geometry>
         <cylinder length="0.0422" radius="0.0468"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.8</mu>
+            <mu2>0.8</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <gazebo reference="right_wheel">
@@ -379,8 +391,7 @@
   <joint name="left_hub_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.084 0.35 -0.0835"/>
     <anchor xyz="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="7.0" friction="2.0"/>
+    <joint_properties damping="9.0"/>
     <parent link="base_center"/>
     <child link="left_hubcap"/>
     <axis xyz="0 1 0"/>
@@ -405,6 +416,14 @@
       <geometry>
         <cylinder length="0.065" radius="0.1315"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.8</mu>
+            <mu2>0.8</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <joint name="left_wheel_joint" type="fixed">
@@ -441,8 +460,7 @@
   <joint name="right_hub_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.084 -0.35 -0.0835"/>
     <anchor xyz="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="7.0" friction="2.0"/>
+    <joint_properties damping="9.0"/>
     <parent link="base_center"/>
     <child link="right_hubcap"/>
     <axis xyz="0 1 0"/>
@@ -467,6 +485,14 @@
       <geometry>
         <cylinder length="0.065" radius="0.1315"/>
       </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.8</mu>
+            <mu2>0.8</mu2>
+          </ode>
+        </friction>
+      </surface>
     </collision>
   </link>
   <joint name="right_wheel_joint" type="fixed">
