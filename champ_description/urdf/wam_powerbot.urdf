@@ -409,7 +409,7 @@
     <axis xyz="0 1 0"/>
     <anchor xyz="0 0 0"/>
     <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="7.0" friction="0.0"/>
     <parent link="right_swivel"/>
     <child link="right_swivel_hubcap"/>
   </joint>
@@ -539,7 +539,7 @@
     <axis xyz="0 1 0"/>
     <anchor xyz="0 0 0"/>
     <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+    <joint_properties damping="7.0" friction="0.0"/>
     <parent link="left_swivel"/>
     <child link="left_swivel_hubcap"/>
   </joint>
@@ -597,7 +597,7 @@
     </collision>
   </link>
   <joint name="left_hub_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.034 0.35 -0.0835"/>
+    <origin rpy="0 0 0" xyz="0.084 0.35 -0.0835"/>
     <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
 	        <joint_properties damping="0.0" friction="0.0" />-->
@@ -659,7 +659,7 @@
     </collision>
   </link>
   <joint name="right_hub_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.034 -0.35 -0.0835"/>
+    <origin rpy="0 0 0" xyz="0.084 -0.35 -0.0835"/>
     <!--<anchor xyz="0 0 0"/>
 	        <limit effort="100" velocity="100" />
 	        <joint_properties damping="0.0" friction="0.0" />-->
@@ -816,6 +816,11 @@
     <axis xyz="0 0 -1"/>
     <limit effort="5" lower="0" upper="3.14159265359" velocity="5.0"/>
     <dynamics damping="0.11" friction="0"/>
+    <!--
+	<xacro:if value= "${prefix=='wam/bhand/finger_2'}">
+	  <mimic joint="wam/bhand/finger_1/prox_joint" multiplier="-1.0" offset="0.0" />
+	</xacro:if>
+-->
   </joint>
   <gazebo reference="wam/bhand/finger_1/prox_joint">
     <provideFeedback>true</provideFeedback>
@@ -950,6 +955,11 @@
     <axis xyz="0 0 1"/>
     <limit effort="5" lower="0" upper="3.14159265359" velocity="5.0"/>
     <dynamics damping="0.11" friction="0"/>
+    <!--
+	<xacro:if value= "${prefix=='wam/bhand/finger_2'}">
+	  <mimic joint="wam/bhand/finger_1/prox_joint" multiplier="-1.0" offset="0.0" />
+	</xacro:if>
+-->
   </joint>
   <gazebo reference="wam/bhand/finger_2/prox_joint">
     <provideFeedback>true</provideFeedback>
@@ -1484,5 +1494,194 @@
     <child link="base_center"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
   </joint>
+  <!--Joint Controllers
+- ARM
+      - wam/base_yaw_joint
+      - wam/shoulder_pitch_joint
+      - wam/shoulder_yaw_joint
+      - wam/elbow_pitch_joint
+      - wam/wrist_yaw_joint
+      - wam/wrist_pitch_joint
+      - wam/palm_yaw_joint
+- HAND
+      - wam/bhand/finger_1/med_joint
+      - wam/bhand/finger_1/dist_joint
+
+      - wam/bhand/finger_2/med_joint
+      - wam/bhand/finger_2/dist_joint
+
+      - wam/bhand/finger_3/dist_joint
+
+-->
+  <!-- wam/base_yaw_joint -->
+  <transmission name="w1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/base_yaw_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/shoulder_pitch_joint -->
+  <transmission name="w2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/shoulder_pitch_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/shoulder_yaw_joint -->
+  <transmission name="w3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/shoulder_yaw_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/elbow_pitch_joint -->
+  <transmission name="w4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/elbow_pitch_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/wrist_yaw_joint -->
+  <transmission name="w5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/wrist_yaw_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor5">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/wrist_pitch_joint -->
+  <transmission name="w6">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/wrist_pitch_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor6">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/palm_yaw_joint -->
+  <transmission name="w7">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/palm_yaw_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor7">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_1/prox_joint -->
+  <transmission name="f1_prox">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_1/prox_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor8_1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_1/med_joint -->
+  <transmission name="f1_med">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_1/med_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor8_2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_1/dist_joint -->
+  <transmission name="f1_dist">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_1/dist_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor8_3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_2/prox_joint -->
+  <transmission name="f2_prox">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_2/prox_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor9_1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_2/med_joint -->
+  <transmission name="f2_med">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_2/med_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor9_2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_2/dist_joint -->
+  <transmission name="f2_dist">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_2/dist_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor9_3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_3/med_joint -->
+  <transmission name="f3_med">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_3/med_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor10_1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- wam/bhand/finger_3/dist_joint -->
+  <transmission name="f3_dist">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="wam/bhand/finger_3/dist_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor10_2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/wam_powerbot</robotNamespace>
+    </plugin>
+  </gazebo>
 </robot>
 

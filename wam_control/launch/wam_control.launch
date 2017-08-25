@@ -6,12 +6,31 @@
 
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/wam" args="wam_joint_1_position_controller wam_joint_2_position_controller wam_joint_3_position_controller wam_joint_4_position_controller wam_joint_5_position_controller wam_joint_6_position_controller wam_joint_7_position_controller joint_state_controller"/>
+    output="screen" ns="/wam_powerbot" args="    wam/base_yaw_joint_position_controller
+					wam/shoulder_pitch_joint_position_controller
+					wam/shoulder_yaw_joint_position_controller
+					wam/elbow_pitch_joint_position_controller
+					wam/wrist_yaw_position_controller
+					wam/wrist_pitch_joint_position_controller
+					wam/palm_yaw_joint_position_controller 
+					wam/bhand/finger_1/prox_joint_position_controller
+					wam/bhand/finger_1/med_joint_position_controller
+					wam/bhand/finger_1/dist_joint_position_controller
+					wam/bhand/finger_2/prox_joint_position_controller
+					wam/bhand/finger_2/med_joint_position_controller
+					wam/bhand/finger_2/dist_joint_position_controller
+					wam/bhand/finger_3/med_joint_position_controller
+					wam/bhand/finger_3/dist_joint_position_controller
+					joint_state_controller"/>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
     <remap from="/joint_states" to="/wam/joint_states" />
+    
   </node>
 
 </launch>
+
+
+
