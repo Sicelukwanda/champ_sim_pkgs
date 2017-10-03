@@ -9,17 +9,29 @@
   <!-- Includea all the WAM stuff -->
   <xacro:include filename="$(find champ_description)/urdf/wam/wam_top.urdf.xacro"/>
 
+<link name="cam"/>
+
   <!-- Include powerbot -->
-  <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot.xacro"/>
+ <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot.xacro"/>
 
 
-<!-- Kinect stuff -->
+
+<!-- Load kinect from turtlebot_description and position it at origin from asus_cal -->
+<xacro:include filename="$(find champ_description)/urdf/asus/asus_cal.xacro"/>
+<xacro:include filename="$(find turtlebot_description)/urdf/sensors/asus_xtion_pro.urdf.xacro"/>
+<xacro:sensor_asus_xtion_pro parent="cam"/>
+<joint name="cam_joint" type="fixed">
+	<origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>
+	<parent link="base_center"/>
+	<child link="cam"/>
+</joint>
+<!-- Kinect stuff 
   <xacro:include filename="$(find champ_description)/urdf/asus/asus.xacro"/>
   <xacro:include filename="$(find champ_description)/urdf/asus/asus_cal.xacro"/>
   <xacro:asus_camera_model name="kinect" parent="base_center">
        <origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>
   </xacro:asus_camera_model>
-  
+  -->
 <!-- Root link is in the world frame-->
 <link name="world"/>
 
