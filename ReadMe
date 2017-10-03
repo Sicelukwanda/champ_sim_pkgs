@@ -1,0 +1,10 @@
+For controllers to work on gazebo robot make sure the ff pkgs are installed:
+gazebo-ros
+gazebo-ros-control
+controller-manager
+effort-controllers
+joint-limits-interface
+joint-states-settler                                                                
+joint-state-controller
+joint-trajectory-controller
+joint-state-publisher
