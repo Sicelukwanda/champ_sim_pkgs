@@ -17,8 +17,8 @@
 
 
 <!-- Load kinect from turtlebot_description and position it at origin from asus_cal -->
-<xacro:include filename="$(find champ_description)/urdf/asus/asus_cal.xacro"/>
-<xacro:include filename="$(find turtlebot_description)/urdf/sensors/asus_xtion_pro.urdf.xacro"/>
+<xacro:include filename="$(find champ_description)/urdf/sensors/asus/asus_cal.xacro"/>
+<xacro:include filename="$(find champ_description)/urdf/sensors/asus/asus_xtion_pro.urdf.xacro"/>
 <xacro:sensor_asus_xtion_pro parent="cam"/>
 <joint name="cam_joint" type="fixed">
 	<origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>

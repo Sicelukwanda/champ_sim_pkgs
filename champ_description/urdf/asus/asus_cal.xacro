@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
-<xacro:property name="asus_x" value="0.351798"/>
-<xacro:property name="asus_y" value="0.0081349"/><!-- 0.0581349 -->
-<xacro:property name="asus_z" value="0.16"/>
-<xacro:property name="asus_roll" value="0.0202643"/><!-- -0.0172643 -->
-<xacro:property name="asus_pitch" value="0.415979"/><!-- 0.425979 -->
-<xacro:property name="asus_yaw" value="0.0134257"/>
-</robot>
