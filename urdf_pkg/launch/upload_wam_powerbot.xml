@@ -1,6 +1,0 @@
-<launch>
-  <!-- send table.xml to param server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py $(find urdf_pkg)/defs/wam_powerbot.xacro" />
-
-</launch>
-
