@@ -190,7 +190,7 @@
 		<origin xyz="0 0 -0.04855" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
 	    	
-	    	<joint_properties damping="9.0" />
+	    	<!--<joint_properties damping="9.0" />-->
 		<parent link="right_swivel_support"/>
 		<child link="right_swivel"/>
 	</joint>
@@ -340,7 +340,7 @@
 		<origin xyz="0 0 -0.04855" rpy="0 0 0"/>
 		<axis xyz="0 0 1"/>
          
-    	<joint_properties damping="9.0" />
+    	<!--<joint_properties damping="9.0" />-->
 		<parent link="left_swivel_support"/>
 		<child link="left_swivel"/>
 	</joint>
@@ -451,7 +451,7 @@
 	      </collision>
 	</link>
 
-	<joint name="left_hub_joint" type="continuous">
+	<joint name="base_left_hub_joint" type="continuous">
 		<origin xyz="0.084 0.35 -0.0835" rpy="0 0 0"/>
 	        <anchor xyz="0 0 0"/>
 	        
@@ -463,7 +463,7 @@
 
 	<link name="left_wheel">
 	      <inertial>
-		<mass value="5.25"/> 
+		<mass value="15.25"/> 
 		<origin xyz="0 0 0"/>
 		<inertia ixx="0.012411765597" ixy="0" ixz="0"
 		         iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
@@ -530,7 +530,7 @@
 	      </collision>
 	</link>
 
-	<joint name="right_hub_joint" type="continuous">
+	<joint name="base_right_hub_joint" type="continuous">
 		<origin xyz="0.084 -0.35 -0.0835" rpy="0 0 0"/>
 	        <anchor xyz="0 0 0"/>
 	        <joint_properties damping="9.0"  />
@@ -541,7 +541,7 @@
 
 	<link name="right_wheel">
 	      <inertial>
-		<mass value="5.25"/> 
+		<mass value="15.25"/> 
 		<origin xyz="0 0 0"/>
 		<inertia ixx="0.012411765597" ixy="0" ixz="0"
 		         iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
@@ -654,23 +654,42 @@
 	</joint>
  -->
 <!--Actually include  "skid_steer_drive_controller" in robot urdf-->
-<p3at_gazebo_ext/>
+  <gazebo>
+    <!-- Robot locomotion plugin -->
+	<plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+	  <updateRate>100.0</updateRate>
+	  <leftJoint>base_left_hub_joint</leftJoint>
+      <rightJoint>base_right_hub_joint</rightJoint>
+	  <wheelSeparation>0.42</wheelSeparation>
+	  <wheelDiameter>0.263</wheelDiameter>
+	  <wheelTorque>5</wheelTorque>
+      <wheelAcceleration>0</wheelAcceleration>
+      <robotNamespace>wam_powerbot</robotNamespace>
+	  <commandTopic>cmd_vel</commandTopic>
+	  <odometryTopic>odom</odometryTopic>
+      <odometrySource>world</odometrySource><!--Other option is Encoder-->
+	  <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_center</robotBaseFrame>
+      <publishTf>1</publishTf>
+      <publishWheelTF>false</publishWheelTF>
+      <publishWheelJointState>false</publishWheelJointState>
+      <rosDebugLevel>Warn</rosDebugLevel>
+	</plugin>
 
-<xacro:macro name="p3at_gazebo_ext">
+    <!-- Fake localization plugin -->
+    <plugin name="ground_truth_odometry" filename="libgazebo_ros_p3d.so">
+	  <alwaysOn>true</alwaysOn>
+	  <updateRate>100.0</updateRate>
+	  <bodyName>base_center</bodyName>
+	  <topicName>base_pose_ground_truth</topicName>
+	  <gaussianNoise>0.01</gaussianNoise>
+	  <frameName>world</frameName><!--other option is World-->
+      <!-- initialize odometry for fake localization-->
+	  <xyzOffsets>0 0 0</xyzOffsets>
+	  <rpyOffsets>0 0 0</rpyOffsets>
+	</plugin>
 
-<gazebo>
-  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-    <updateRate>100.0</updateRate>
-    <leftJoint>left_hub_joint</leftJoint>
-    <rightJoint>right_hub_joint</rightJoint>
-    <wheelSeparation>0.39</wheelSeparation>
-    <wheelDiameter>0.26</wheelDiameter>
-    <robotBaseFrame>base_center</robotBaseFrame>
-    <torque>200</torque>
-    <topicName>cmd_vel</topicName>
-  </plugin>
-</gazebo>
-
-</xacro:macro>
-
+  </gazebo>
 </robot>
