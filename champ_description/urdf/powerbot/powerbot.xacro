@@ -79,7 +79,7 @@
 		<collision>
 			<origin xyz="-0.045 0 ${bcz}" rpy="0 0 0"/>
 			<geometry>
-				<mesh filename="${mesh_directory}/chassis.stl"/>
+				<mesh filename="${mesh_directory}/chassis.stl" scale="1.01 1.01 1.01"/>
 			</geometry>
 		</collision>
 	</link>
@@ -146,7 +146,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy="0 0 0"/>
 		<geometry>
-			<mesh filename="${mesh_directory}/swivel_support.stl" />
+			<mesh filename="${mesh_directory}/swivel_support.stl" scale= "1.005 1.005 1.005"/>
 		</geometry>
 	</collision>
 	</link>
@@ -154,7 +154,7 @@
 		<material value="Gazebo/Grey"/>
 	</gazebo>
 	<joint name="right_base_swivel_support_joint" type="fixed">
-		<origin xyz="-0.215 -0.2 -0.091" rpy="0 0 0"/>
+		<origin xyz="-0.215 -0.2 -0.0915" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="right_swivel_support"/>
 	</joint>
@@ -179,7 +179,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy="0 0 0"/>
 		<geometry>
-			<mesh filename="${mesh_directory}/swivel.stl" />
+			<mesh filename="${mesh_directory}/swivel.stl" scale= "1.005 1.005 1.005"/>
 		</geometry>
 	</collision>
 	</link>
@@ -252,7 +252,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy=" ${-3.1415927/2} 0 0"/>
 		<geometry>
-			<cylinder radius="0.0468" length="0.0422"/>
+			<cylinder radius="0.052" length="0.0422"/>
 		</geometry>
 		      <surface>
 			<friction>
@@ -295,7 +295,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy="0 0 0"/>
 		<geometry>
-			<mesh filename="${mesh_directory}/swivel_support.stl" />
+			<mesh filename="${mesh_directory}/swivel_support.stl" scale= "1.005 1.005 1.005"/>
 		</geometry>
 	</collision>
 	</link>
@@ -303,7 +303,7 @@
 		<material value="Gazebo/Grey"/>
 	</gazebo>
 	<joint name="left_base_swivel_support_joint" type="fixed">
-		<origin xyz="-0.215 0.2 -0.091" rpy="0 0 0"/>
+		<origin xyz="-0.215 0.2 -0.0915" rpy="0 0 0"/>
 		<parent link="base_center"/>
 		<child link="left_swivel_support"/>
 	</joint>
@@ -329,7 +329,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy="0 0 0"/>
 		<geometry>
-			<mesh filename="${mesh_directory}/swivel.stl" />
+			<mesh filename="${mesh_directory}/swivel.stl"  scale= "1.005 1.005 1.005" />
 		</geometry>
 	</collision>
 	</link>
@@ -402,7 +402,7 @@
 	<collision>
 		<origin xyz="0 0 0" rpy=" ${-3.1415927/2} 0 0"/>
 		<geometry>
-			<cylinder radius="0.0468" length="0.0422"/>
+			<cylinder radius="0.052" length="0.0422"/>
 		</geometry>
 		      <surface>
 			<friction>
@@ -480,7 +480,7 @@
 	      <collision>
 		<origin xyz="0 0 0" rpy="${-3.1415927/2} 0 0"/>
 		<geometry>
-		  <cylinder radius="0.1315" length="0.065"/>
+		  <cylinder radius="0.133" length="0.065"/>
 		</geometry>
 		      <surface>
 			<friction>
@@ -558,7 +558,7 @@
 	      <collision>
 		<origin xyz="0 0 0" rpy="${-3.1415927/2} 0 0"/>
 		<geometry>
-		  <cylinder radius="0.1315" length="0.065"/>
+		  <cylinder radius="0.133" length="0.065"/>
 		</geometry>
 		      <surface>
 			<friction>
@@ -659,8 +659,8 @@
   <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
     <updateRate>100.0</updateRate>
     <robotNamespace>/</robotNamespace>
-    <leftJoint>base_right_wheel_joint</leftJoint>
-    <rightJoint>base_left_wheel_joint</rightJoint>
+    <leftJoint>left_hub_joint</leftJoint>
+    <rightJoint>right_hub_joint</rightJoint>
     <wheelSeparation>0.39</wheelSeparation>
     <wheelDiameter>0.15</wheelDiameter>
     <robotBaseFrame>base_center</robotBaseFrame>

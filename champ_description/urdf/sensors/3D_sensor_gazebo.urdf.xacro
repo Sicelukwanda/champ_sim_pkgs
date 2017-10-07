@@ -19,6 +19,7 @@
           </clip>
         </camera>
         <plugin name="kinect_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+	<robotNamespace>/wam_powerbot</robotNamespace>
           <cameraName>camera</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
