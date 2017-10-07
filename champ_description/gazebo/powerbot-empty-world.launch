@@ -8,9 +8,8 @@
 	<arg name="world_name" value="$(arg world)" />
   </include>
 
-  <arg name="urdf" default="$(find champ_description)/urdf/powerbot/powerbot.urdf" />
   <arg name="name" default="powerbot" />
-  <param name="robot_description" command="$(find xacro)/xacro.py $(arg urdf)" />
+ <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find champ_description)/urdf/powerbot/powerbot.xacro'" />
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model $(arg name)" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
