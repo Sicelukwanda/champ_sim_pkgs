@@ -19,7 +19,7 @@
   <!-- Include powerbot wheels -->
   <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot_wheel.xacro"/>
   <!-- Include powerbot swivel wheels -->
-  <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot_swivel_wheel.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot_swivel_ball.xacro"/>
   <!-- where to find all meshes -->
   <xacro:property name="mesh_directory" value="package://champ_description/meshes/p3dx_meshes"/>
 
@@ -127,8 +127,8 @@
 	</gazebo>
 
   
- <xacro:powerbot_swivel_wheel suffix="left" parent="base_center" reflect="1"/>
-  <xacro:powerbot_swivel_wheel suffix="right" parent="base_center" reflect="-1"/>
+ <xacro:powerbot_swivel_ball suffix="left" parent="base_center" reflect="1"/>
+  <xacro:powerbot_swivel_ball suffix="right" parent="base_center" reflect="-1"/>
 
 
 
