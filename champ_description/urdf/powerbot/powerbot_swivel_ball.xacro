@@ -88,38 +88,67 @@
 
 
 
-<!-- ${suffix} support swivel ball joint-->
+<!-- ${suffix} support swivel ball joint -->
 
-<joint name="${suffix}_ballRoot_joint" type="continuous" >
+<joint name="${suffix}_ballRoot_joint" type="fixed" >
     <origin xyz="0 0 0" />
     <parent link="powerbot_${suffix}_swivel_support" />
-    <child link="powerbot_${suffix}_swivel_ball" />
-    <axis xyz="1 1 1" />
-    <dynamics damping="0.005" />
+    <child link="${suffix}_ball" />
 </joint>
-<!--
-<link name="${suffix}_ball" />
+
+<link name="${suffix}_ball" >
+<inertial>
+	<mass value="2.0"/>	
+	<origin xyz="0 0 0"/>
+	<inertia ixx="0.00288" ixy="0.0" ixz="0.0"
+		 iyy="0.00288" iyz="0.0" izz="0.00288"/>
+</inertial>
+  </link>
+
+
 <joint name="${suffix}_ballPsi_joint" type="continuous" >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="${suffix}_ball" />
     <child link="${suffix}_ball_psi_link" />
     <axis xyz="0 0 1" />
-    <dynamics damping="0.005" />
+    <dynamics damping="0.09" />
 </joint>
-<link name="${suffix}_ball_psi_link" />
+
+<link name="${suffix}_ball_psi_link" >
+<inertial>
+	<mass value="2.0"/>	
+	<origin xyz="0 0 0"/>
+	<inertia ixx="0.00288" ixy="0.0" ixz="0.0"
+		 iyy="0.00288" iyz="0.0" izz="0.00288"/>
+</inertial>
+  </link>
+
+
 <joint name="${suffix}_ballTheta_joint" type="continuous" >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="${suffix}_ball_psi_link"/>
     <child link="${suffix}_ball_theta_link"/>
     <axis xyz="0 1 0" />
-    <dynamics damping="0.005" />
+    <dynamics damping="0.09" />
 </joint>
-<link name="${suffix}_ball_theta_link" />
+
+<link name="${suffix}_ball_theta_link" >
+	<inertial>
+		<mass value="2.0"/>	
+		<origin xyz="0 0 0"/>
+		<inertia ixx="0.00288" ixy="0.0" ixz="0.0"
+			 iyy="0.00288" iyz="0.0" izz="0.00288"/>
+	</inertial>
+  </link>
+
 <joint name="${suffix}_ballPhi_joint" type="continuous" >
+    <origin xyz="0 0 0" rpy="0 0 0"/>
     <parent link="${suffix}_ball_theta_link"/>
     <child link="powerbot_${suffix}_swivel_ball"/>
     <axis xyz="1 0 0" />
-    <dynamics damping="0.005" />
+    <dynamics damping="0.09" />
 </joint>
-
+<!--
 -->
  <!-- Swivel ball -->
 <link name="powerbot_${suffix}_swivel_ball">
@@ -148,8 +177,8 @@
 
     <gazebo reference="powerbot_${suffix}_swivel_ball">
       <material value="Gazebo/Grey"/>
-      <mu1>0.5</mu1>
-      <mu2>50.0</mu2>
+      <mu1>100</mu1>
+      <mu2>200</mu2>
       <kp>100000000.0</kp>
       <kd>1.0</kd>
     </gazebo>

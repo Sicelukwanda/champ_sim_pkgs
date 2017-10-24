@@ -73,9 +73,6 @@
 			<geometry name="pioneer_geom">
 				<mesh filename="${mesh_directory}/chassis.stl"/>
 			</geometry>
-	<material name="ChassisRed">
-		<color rgba="0.8 0.0 0.0 1.0"/>
-	</material>
 		</visual>
 		<collision>
 			<origin xyz="-0.045 0 ${bcz}" rpy="0 0 0"/>
@@ -85,7 +82,7 @@
 		</collision>
 	</link>
 	<gazebo reference="base_center">
-		 <material>Gazebo/Red</material>
+		 <material>Gazebo/Yellow</material>
 	</gazebo>
 
 <!-- Top -->
