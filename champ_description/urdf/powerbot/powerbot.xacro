@@ -6,15 +6,16 @@
 	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
 	xmlns:xacro="http://ros.org/wiki/xacro">
 
-
- <!-- robot name -->
+<xacro:macro name="powerbot"/>
+ <!-- robot name
   <xacro:macro name="powerbot" params="prefix parent_link xyz rpy">
-    <joint name ="${prefix}/world_joint" type="planar">
+    <joint name ="${prefix}/world_joint" type="fixed">
       <parent link="${parent_link}"/>
       <child link="base_center"/>
       <origin xyz="${xyz}" rpy="${rpy}"/>
     </joint>
   </xacro:macro>
+ -->
 
   <!-- Include powerbot wheels -->
   <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot_wheel.xacro"/>
@@ -64,9 +65,9 @@
 	<inertial>
 	  <mass value="120.0"/>
 	  <origin xyz="-0.045 0 ${bcz}"/>
-	  <inertia ixx="0.4255" ixy="0.0"    ixz="0.0"
-		   		iyy="0.4955" iyz="0.0"
-	          			     izz="0.7441"/>
+	  <inertia ixx="1" ixy="0.0"    ixz="0.0"
+		   		iyy="1" iyz="0.0"
+	          			     izz="1"/>
 	</inertial>
 		<visual name="base_visual">
 			<origin xyz="-0.045 0 ${bcz}" rpy="0 0 0"/>
@@ -83,6 +84,7 @@
 	</link>
 	<gazebo reference="base_center">
 		 <material>Gazebo/Yellow</material>
+    		<static>true</static>
 	</gazebo>
 
 <!-- Top -->
@@ -123,7 +125,7 @@
 		<material value="Gazebo/Black"/>
 	</gazebo>
 
-  
+  <!--
  <xacro:powerbot_swivel_ball suffix="left" parent="base_center" reflect="1"/>
   <xacro:powerbot_swivel_ball suffix="right" parent="base_center" reflect="-1"/>
 
@@ -131,6 +133,7 @@
 
   <xacro:powerbot_wheel suffix="left" parent="base_center" reflect="1"/>
   <xacro:powerbot_wheel suffix="right" parent="base_center" reflect="-1"/>
+-->
 
 <!-- Front + Back Sonar
 	<link name="front_sonar">

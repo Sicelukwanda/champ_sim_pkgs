@@ -32,9 +32,9 @@
        <origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>
   </xacro:asus_camera_model>
   -->
-<!-- Root link is in the world frame-->
+<!-- Root link is in the world frame
 <link name="world"/>
-
+-->
 	
 <!-- ArmStuff -->
 
@@ -45,7 +45,7 @@
 <xacro:wam_7dof prefix="wam" parent_link="arm_plate" xyz="0.22 0.0 0.05" rpy="0 0 0" />
 
 
-<xacro:powerbot prefix="powerbot" parent_link="world" xyz="0.0 0.0 0.0" rpy="0 0 0" />
+<xacro:powerbot/>
 
 <!--Joint Controllers
 - ARM
