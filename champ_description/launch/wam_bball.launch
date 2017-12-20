@@ -8,10 +8,17 @@
 	<arg name="world_name" value="$(arg world)" />
   </include>
 
-  <arg name="urdf" default="$(find champ_description)/urdf/wam/wam_bball.urdf" />
-  <arg name="name" default="wam7" />
-  <param name="robot_description" command="$(find xacro)/xacro.py $(arg urdf)" />
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model $(arg name)" />
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+    command="$(find xacro)/xacro --inorder '$(find champ_description)/urdf/wam/wam7_bball.urdf.xacro'" />
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model wam_powerbot -param robot_description"/>
+
 <!--  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
 
       <remap from="wam_joint_1" to="wam/base_yaw_joint" />

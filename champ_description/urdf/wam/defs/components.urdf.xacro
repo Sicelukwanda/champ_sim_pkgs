@@ -25,8 +25,8 @@
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find champ_description)/urdf/wam/hand.urdf.xacro"/>
-  <xacro:include filename="$(find champ_description)/urdf/wam/common.urdf.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/wam/defs/hand.urdf.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/wam/defs/common.urdf.xacro"/>
   <xacro:property name="b" value="0.5"/>
 
   <!-- Upper arm macros -->
@@ -501,6 +501,36 @@
       <collision>
         <geometry>
           <mesh filename="${models_path}/sw_meshes/elbow_link_convex.dae"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+  <xacro:macro name="wam_forearm_stump" params="prefix">
+    <joint name="${prefix}/fixed_stump_joint" type="fixed">
+      <parent link="${prefix}/stump_link"/>
+      <child link="${prefix}/forearm_stump_link"/>
+      <origin xyz="0.045 0 0.55" rpy="${-PI/2} 0 0"/>
+    </joint>
+    <link name="${prefix}/forearm_stump_link" >
+      <inertial>
+        <mass value="0.408" />
+        <origin xyz="-0.0195 -.02566 -.00022942 " rpy="0 0 0" />
+        <inertia
+          ixx="0.01491672" ixy="0.001506040000000" ixz="0.000017410000000"
+                           iyy="0.002944630000000" iyz="0.000021090000000"
+                                                   izz="0.014829880000000" />
+      </inertial>
+      <visual>
+        <material name="WAMGrey">
+          <color rgba="0.7 0.7 0.7 1.0"/>
+        </material>
+        <geometry>
+          <mesh filename="${models_path}/sw_meshes/forearm_link_fine.stl"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="${models_path}/sw_meshes/forearm_link_convex.dae"/>
         </geometry>
       </collision>
     </link>

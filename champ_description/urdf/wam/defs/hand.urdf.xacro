@@ -25,7 +25,7 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find champ_description)/urdf/wam/common.urdf.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/wam/defs/common.urdf.xacro"/>
   <xacro:property name="b" value="1.1"/>
 
   <!-- High-leveel hand macro -->

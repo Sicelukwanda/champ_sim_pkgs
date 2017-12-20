@@ -1,58 +1,19 @@
 <?xml version="1.0"?>
-
-<robot name="wam_powerbot"
-	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
-	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
-	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-	xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- Includea all the WAM stuff -->
-  <xacro:include filename="$(find champ_description)/urdf/wam/wam_top.urdf.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/wam/defs/wam_top.urdf.xacro"/>
 
-<link name="cam"/>
+<xacro:macro name="wam7_bball" params="prefix parent xyz rpy">
 
-  <!-- Include powerbot -->
- <xacro:include filename="$(find champ_description)/urdf/powerbot/powerbot.xacro"/>
+  <!-- 7-DOF Wam -->
+  <xacro:wam_7dof prefix="${prefix}" parent_link="${parent}" xyz="${xyz}" rpy="${rpy}" />
 
+  <!-- BBall -->
+  <xacro:bball prefix="${prefix}/bball" parent_link="${prefix}/wrist_palm_link" xyz="0 0 0.06" rpy="0 0 1.57079"/>
 
+  <!-- ARM Joint Controllers
 
-<!-- Load kinect from turtlebot_description and position it at origin from asus_cal -->
-<xacro:include filename="$(find champ_description)/urdf/sensors/asus/asus_cal.xacro"/>
-<xacro:include filename="$(find champ_description)/urdf/sensors/asus/asus_xtion_pro.urdf.xacro"/>
-<xacro:sensor_asus_xtion_pro parent="cam"/>
-<joint name="cam_joint" type="fixed">
-	<origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>
-	<parent link="base_center"/>
-	<child link="cam"/>
-</joint>
-<!-- Kinect stuff 
-  <xacro:include filename="$(find champ_description)/urdf/asus/asus.xacro"/>
-  <xacro:include filename="$(find champ_description)/urdf/asus/asus_cal.xacro"/>
-  <xacro:asus_camera_model name="kinect" parent="base_center">
-       <origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>
-  </xacro:asus_camera_model>
-  -->
-<!-- Root link is in the world frame-->
-<link name="world"/>
-
-<joint name="world_fixed_joint" type="fixed">
-<origin xyz="0 0 0" rpy="0 0 0"/>
-<parent link="world"/>
-<child link="base_center"/>
-</joint>	
-<!-- ArmStuff -->
-
-<!--Ball-->
-<xacro:bball parent_link="wam/wrist_palm_link" prefix="wam/ball" xyz="0 0 0.06" rpy="0 0 0"/>
-
-<!-- 7-DOF Wam on top of top plate-->
-<xacro:wam_7dof prefix="wam" parent_link="arm_plate" xyz="0.22 0.0 0.05" rpy="0 0 0" />
-
-
-<xacro:powerbot/>
-
-<!--Joint Controllers
-- ARM
       - wam/base_yaw_joint
       - wam/shoulder_pitch_joint
       - wam/shoulder_yaw_joint
@@ -60,12 +21,6 @@
       - wam/wrist_yaw_joint
       - wam/wrist_pitch_joint
       - wam/palm_yaw_joint
-- HAND
-      - wam/bhand/finger_1/med_joint
-      - wam/bhand/finger_1/dist_joint
-      - wam/bhand/finger_2/med_joint
-      - wam/bhand/finger_2/dist_joint
-      - wam/bhand/finger_3/dist_joint
 -->
 
 <!-- wam/base_yaw_joint -->
@@ -152,12 +107,6 @@
     </actuator>
   </transmission>
 
-
-
-<gazebo>
-  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-    <robotNamespace>/wam_powerbot</robotNamespace>
-  </plugin>
-</gazebo>
+</xacro:macro>
 
 </robot>

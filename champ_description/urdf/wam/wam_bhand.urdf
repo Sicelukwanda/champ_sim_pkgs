@@ -961,5 +961,6 @@
       <inertia ixx="0.0731582" ixy="1.4308e-006" ixz="1.0106e-007" iyy="0.07837" iyz="0" izz="0.07275"/>
     </inertial>
   </link>
+  <!-- WAM joint Controllers -->
 </robot>
 

@@ -25,8 +25,8 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find champ_description)/urdf/wam/common.urdf.xacro"/>
-  <xacro:include filename="$(find champ_description)/urdf/wam/components.urdf.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/wam/defs/common.urdf.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/wam/defs/components.urdf.xacro"/>
 
   <xacro:macro name="wam_7dof" params="prefix parent_link xyz rpy">
     <xacro:wam prefix="${prefix}" parent_link="${parent_link}" xyz="${xyz}" rpy="${rpy}"/>
