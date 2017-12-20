@@ -42,10 +42,6 @@
 </joint>	
 <!-- ArmStuff -->
 
-<!-- BHand 
-<xacro:bhand prefix="wam/bhand" parent_link="wam/wrist_palm_link" xyz="0 0 0.06" rpy="0 0 0"/>
--->
-
 <!--Ball-->
 <xacro:bball parent_link="wam/wrist_palm_link" prefix="wam/ball" xyz="0 0 0.06" rpy="0 0 0"/>
 
@@ -156,101 +152,6 @@
     </actuator>
   </transmission>
 
-<!-- wam/bhand/finger_1/prox_joint -->
-  <transmission name="f1_prox">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_1/prox_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor8_1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<!-- wam/bhand/finger_1/med_joint -->
-  <transmission name="f1_med">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_1/med_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor8_2">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<!-- wam/bhand/finger_1/dist_joint -->
-  <transmission name="f1_dist">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_1/dist_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor8_3">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<!-- wam/bhand/finger_2/prox_joint -->
-  <transmission name="f2_prox">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_2/prox_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor9_1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<!-- wam/bhand/finger_2/med_joint -->
-  <transmission name="f2_med">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_2/med_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor9_2">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<!-- wam/bhand/finger_2/dist_joint -->
-  <transmission name="f2_dist">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_2/dist_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor9_3">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<!-- wam/bhand/finger_3/med_joint -->
-  <transmission name="f3_med">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_3/med_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor10_1">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-<!-- wam/bhand/finger_3/dist_joint -->
-  <transmission name="f3_dist">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="wam/bhand/finger_3/dist_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="motor10_2">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
 
 
 <gazebo>

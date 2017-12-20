@@ -224,6 +224,17 @@
   <material name="WAMGrey">
     <color rgba="0.7 0.7 0.7 1.0"/>
   </material>
+  <link name="cam"/>
+  <!-- robot name
+  <xacro:macro name="powerbot" params="prefix parent_link xyz rpy">
+    <joint name ="${prefix}/world_joint" type="fixed">
+      <parent link="${parent_link}"/>
+      <child link="base_center"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+  </xacro:macro>
+ -->
+  <!--<xacro:include filename="$(find p2os_urdf)/defs/materials.xacro"/>-->
   <!--<xacro:include filename="$(find p2os_urdf)/defs/materials.xacro"/>-->
   <!-- 0.148 -->
   <!-- Brown arm plate -->
@@ -257,28 +268,26 @@
   <!-- Chassis -->
   <link name="base_center">
     <inertial>
-      <mass value="200.0"/>
+      <mass value="120.0"/>
       <origin xyz="-0.045 0 0.067"/>
-      <inertia ixx="0.4255" ixy="0.0" ixz="0.0" iyy="0.4955" iyz="0.0" izz="0.7441"/>
+      <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
     </inertial>
     <visual name="base_visual">
       <origin rpy="0 0 0" xyz="-0.045 0 0.067"/>
       <geometry name="pioneer_geom">
         <mesh filename="package://champ_description/meshes/p3dx_meshes/chassis.stl"/>
       </geometry>
-      <material name="ChassisYellow">
-        <color rgba="0.715 0.583 0.210 1.0"/>
-      </material>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="-0.045 0 0.067"/>
       <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/chassis.stl"/>
+        <mesh filename="package://champ_description/meshes/p3dx_meshes/chassis.stl" scale="1.01 1.01 1.01"/>
       </geometry>
     </collision>
   </link>
   <gazebo reference="base_center">
-    <material value="Gazebo/Yellow"/>
+    <material>Gazebo/Yellow</material>
+    <static>true</static>
   </gazebo>
   <!-- Top -->
   <joint name="base_top_joint" type="fixed">
@@ -313,446 +322,264 @@
   <gazebo reference="top_plate">
     <material value="Gazebo/Black"/>
   </gazebo>
-  <!-- Right Swivel support-->
-  <link name="right_swivel_support">
-    <inertial>
-      <mass value="0.1"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
-    <visual name="right_swivel_support_visual">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="swivel">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel_support.stl"/>
-      </geometry>
-      <material name="swivel">
-        <color rgba="0.9 0.9 0.9 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel_support.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="swivel">
-    <material value="Gazebo/Grey"/>
+  <!--
+ <xacro:powerbot_swivel_ball suffix="left" parent="base_center" reflect="1"/>
+  <xacro:powerbot_swivel_ball suffix="right" parent="base_center" reflect="-1"/>
+
+
+
+  <xacro:powerbot_wheel suffix="left" parent="base_center" reflect="1"/>
+  <xacro:powerbot_wheel suffix="right" parent="base_center" reflect="-1"/>
+-->
+  <!-- Front + Back Sonar
+	<link name="front_sonar">
+		<inertial>
+			<mass value="0.0001"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="1" ixy="0" ixz="0"
+				 iyy="1" iyz="0" izz="1"/>
+		</inertial>
+		<visual name="base_visual">
+			<origin xyz="-0.17 0 0.065" rpy="0 0 0"/>
+			<geometry name="pioneer_geom">
+				<mesh filename="${mesh_directory}/front_sonar.stl" scale="2 2 2"/>
+			</geometry>
+			<material name="SonarBrown">
+				<color rgba="0.206 0.166 0.006 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="${mesh_directory}/front_sonar.stl" scale="2 2 2"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="front_sonar">
+		<material value="Gazebo/Yellow"/>
+	</gazebo>
+
+	<joint name="base_front_joint" type="fixed">
+		
+		<origin xyz="-0.198 0 ${bcz + 0.06}" rpy="0 0 0"/>
+		<parent link="base_center"/>
+		<child link="front_sonar"/>
+	</joint>
+
+	<link name="back_sonar">
+		<inertial>
+			<mass value="0.0001"/>	
+			<origin xyz="0 0 0"/>
+			<inertia ixx="1" ixy="0" ixz="0"
+				 iyy="1" iyz="0" izz="1"/>
+		</inertial>
+		<visual name="back_sonar_vis">
+			<origin xyz="0.17 0 0.064" rpy="0 0 0"/>
+			<geometry name="pioneer_geom">
+				<mesh filename="${mesh_directory}/back_sonar.stl" scale="2 2 2"/>
+			</geometry>
+			<material name="SonarBrown">
+				<color rgba="0.206 0.166 0.006 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="${mesh_directory}/back_sonar.stl" scale="2 2 2"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<gazebo reference="back_sonar">
+		<material value="Gazebo/Yellow"/>
+	</gazebo>
+
+	<joint name="base_back_joint" type="fixed">
+		
+		<origin xyz="0.109 0 ${bcz + 0.061}" rpy="0 0 0"/>
+		<parent link="base_center"/>
+		<child link="back_sonar"/>
+	</joint>
+ -->
+  <!--Actually include  "skid_steer_drive_controller" in robot urdf-->
+  <gazebo>
+    <!-- Robot locomotion plugin -->
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <legacyMode>false</legacyMode>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100.0</updateRate>
+      <leftJoint>base_left_wheel_joint</leftJoint>
+      <rightJoint>base_right_wheel_joint</rightJoint>
+      <wheelSeparation>0.42</wheelSeparation>
+      <wheelDiameter>0.263</wheelDiameter>
+      <wheelTorque>5</wheelTorque>
+      <wheelAcceleration>0</wheelAcceleration>
+      <robotNamespace>wam_powerbot</robotNamespace>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometrySource>world</odometrySource>
+      <!--Other option is Encoder-->
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_center</robotBaseFrame>
+      <publishTf>1</publishTf>
+      <publishWheelTF>false</publishWheelTF>
+      <publishWheelJointState>false</publishWheelJointState>
+      <rosDebugLevel>Warn</rosDebugLevel>
+    </plugin>
+    <!-- Fake localization plugin -->
+    <plugin filename="libgazebo_ros_p3d.so" name="ground_truth_odometry">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100.0</updateRate>
+      <bodyName>base_center</bodyName>
+      <topicName>base_pose_ground_truth</topicName>
+      <gaussianNoise>0.01</gaussianNoise>
+      <frameName>world</frameName>
+      <!--other option is World-->
+      <!-- initialize odometry for fake localization-->
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
   </gazebo>
-  <joint name="right_base_swivel_support_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="-0.215 -0.2 -0.091"/>
-    <parent link="base_center"/>
-    <child link="right_swivel_support"/>
+  <!-- 
+    These properties must be observed by any machine
+    that wants to be defined as a turtlebot. Refer
+    to the REP for more details.
+    
+    http://www.ros.org/reps/rep-0119.html
+   -->
+  <joint name="camera_rgb_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.087 0.0205 0.287"/>
+    <parent link="cam"/>
+    <child link="camera_rgb_frame"/>
   </joint>
-  <!-- Right Swivel -->
-  <link name="right_swivel">
-    <inertial>
-      <mass value="0.1"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
-    <visual name="right_swivel_visual">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="swivel">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel.stl"/>
-      </geometry>
-      <material name="swivel">
-        <color rgba="0.5 0.5 0.5 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="swivel">
-    <material value="Gazebo/Grey"/>
-  </gazebo>
-  <joint name="right_base_swivel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 -0.04855"/>
-    <!--<axis xyz="0 0 1"/>
-	    	<limit effort="100" velocity="100" k_velocity="0" />
-	    	<joint_properties damping="0.0" friction="0.0" />-->
-    <parent link="right_swivel_support"/>
-    <child link="right_swivel"/>
+  <link name="camera_rgb_frame"/>
+  <joint name="camera_rgb_optical_joint" type="fixed">
+    <origin rpy="-1.570795 0 -1.570795" xyz="0 0 0"/>
+    <parent link="camera_rgb_frame"/>
+    <child link="camera_rgb_optical_frame"/>
   </joint>
-  <!-- Right swivel Wheel + Hubcap -->
-  <link name="right_swivel_hubcap">
-    <inertial>
-      <mass value="0.01"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983" iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
-    </inertial>
-    <visual name="right_swivel_hubcap">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="pioneer_geom">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/center_hubcap.stl"/>
-      </geometry>
-      <material name="swivel">
-        <color rgba="0.5 0.5 0.5 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/center_hubcap.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="swivel_hubcap">
-    <material value="Gazebo/Grey"/>
-  </gazebo>
-  <joint name="right_swivel_hubcap_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.036 0 -0.029"/>
-    <axis xyz="0 1 0"/>
-    <anchor xyz="0 0 0"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="7.0" friction="0.0"/>
-    <parent link="right_swivel"/>
-    <child link="right_swivel_hubcap"/>
+  <link name="camera_rgb_optical_frame"/>
+  <joint name="camera_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.022 0"/>
+    <parent link="camera_rgb_frame"/>
+    <child link="camera_link"/>
   </joint>
-  <link name="right_swivel_wheel">
-    <inertial>
-      <mass value="0.1"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983" iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
-    </inertial>
-    <visual name="right_swivel_wheel">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="swivel_wheel">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/center_wheel.stl"/>
-      </geometry>
-      <material name="WheelBlack">
-        <color rgba="0.117 0.117 0.117 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy=" -1.57079635 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.0422" radius="0.0669"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="swivel_wheel">
-    <material value="Gazebo/Black"/>
-  </gazebo>
-  <joint name="right_swivel_wheel_hubcap_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="right_swivel_hubcap"/>
-    <child link="right_swivel_wheel"/>
-  </joint>
-  <!-- Left Swivel support-->
-  <link name="left_swivel_support">
-    <inertial>
-      <mass value="0.1"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
-    <visual name="left_swivel_support_visual">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="swivel">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel_support.stl"/>
-      </geometry>
-      <material name="swivel">
-        <color rgba="0.9 0.9 0.9 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel_support.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="swivel">
-    <material value="Gazebo/Grey"/>
-  </gazebo>
-  <joint name="left_base_swivel_support_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="-0.215 0.2 -0.091"/>
-    <parent link="base_center"/>
-    <child link="left_swivel_support"/>
-  </joint>
-  <!--Left Swivel -->
-  <link name="left_swivel">
-    <inertial>
-      <mass value="0.1"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
-    <visual name="left_swivel_visual">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="swivel">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel.stl"/>
-      </geometry>
-      <material name="swivel">
-        <color rgba="0.5 0.5 0.5 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/swivel.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="swivel">
-    <material value="Gazebo/Grey"/>
-  </gazebo>
-  <joint name="left_base_swivel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 -0.04855"/>
-    <!--	<axis xyz="0 0 1"/>
-         <limit effort="100" velocity="100" k_velocity="0" />
-    	<joint_properties damping="0.0" friction="0.0" />-->
-    <parent link="left_swivel_support"/>
-    <child link="left_swivel"/>
-  </joint>
-  <!-- left swivel Wheel + Hubcap -->
-  <link name="left_swivel_hubcap">
-    <inertial>
-      <mass value="0.01"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983" iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
-    </inertial>
-    <visual name="left_swivel_hubcap">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="pioneer_geom">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/center_hubcap.stl"/>
-      </geometry>
-      <material name="swivel">
-        <color rgba="0.5 0.5 0.5 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/center_hubcap.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="swivel_hubcap">
-    <material value="Gazebo/Grey"/>
-  </gazebo>
-  <joint name="left_swivel_hubcap_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="-0.036 0 -0.029"/>
-    <axis xyz="0 1 0"/>
-    <anchor xyz="0 0 0"/>
-    <limit effort="100" k_velocity="0" velocity="100"/>
-    <joint_properties damping="7.0" friction="0.0"/>
-    <parent link="left_swivel"/>
-    <child link="left_swivel_hubcap"/>
-  </joint>
-  <link name="left_swivel_wheel">
-    <inertial>
-      <mass value="0.1"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="-0.000711733678" ixz="0.00050272983" iyy="0.015218160428" iyz="-0.000004273467" izz="0.011763977943"/>
-    </inertial>
-    <visual name="left_swivel_wheel">
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry name="swivel_wheel">
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/center_wheel.stl"/>
-      </geometry>
-      <material name="WheelBlack">
-        <color rgba="0.117 0.117 0.117 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy=" -1.57079635 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.0422" radius="0.0669"/>
-      </geometry>
-    </collision>
-  </link>
-  <gazebo reference="right_wheel">
-    <material value="Gazebo/Black"/>
-  </gazebo>
-  <joint name="left_swivel_wheel_hubcap_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="left_swivel_hubcap"/>
-    <child link="left_swivel_wheel"/>
-  </joint>
-  <!--Left Wheel and hub-->
-  <link name="left_hubcap">
-    <inertial>
-      <mass value="0.08"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="0" ixz="0" iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
-    </inertial>
+  <link name="camera_link">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="-0.015 0.0035 0.004"/>
       <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/hubcap.stl"/>
+        <mesh filename="package://champ_description/meshes/sensors/xtion_pro_camera.dae"/>
       </geometry>
-      <material name="HubcapWhite">
-        <color rgba="1.0 1.0 1.0 1.0"/>
-      </material>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
       <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/hubcap.stl"/>
+        <box size="0.0730 0.2760 0.0720"/>
       </geometry>
     </collision>
-  </link>
-  <joint name="left_hub_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.084 0.35 -0.0835"/>
-    <anchor xyz="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
-    <parent link="base_center"/>
-    <child link="left_hubcap"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-  <link name="left_wheel">
     <inertial>
-      <mass value="10.25"/>
+      <mass value="0.170"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="0" ixz="0" iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
+      <inertia ixx="0.001152600" ixy="0.0" ixz="0.0" iyy="0.000148934" iyz="0.0" izz="0.001154654"/>
     </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/wheel.stl"/>
-      </geometry>
-      <material name="WheelBlack">
-        <color rgba="0.117 0.117 0.117 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="-1.57079635 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.065" radius="0.1315"/>
-      </geometry>
-    </collision>
   </link>
-  <joint name="left_wheel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="left_hubcap"/>
-    <child link="left_wheel"/>
+  <joint name="camera_depth_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.027 0"/>
+    <parent link="camera_rgb_frame"/>
+    <child link="camera_depth_frame"/>
   </joint>
-  <gazebo reference="left_wheel">
-    <material value="Gazebo/Black"/>
+  <link name="camera_depth_frame"/>
+  <joint name="camera_depth_optical_joint" type="fixed">
+    <origin rpy="-1.570795 0 -1.570795" xyz="0 0 0"/>
+    <parent link="camera_depth_frame"/>
+    <child link="camera_depth_optical_frame"/>
+  </joint>
+  <link name="camera_depth_optical_frame"/>
+  <gazebo reference="camera_link">
+    <sensor name="camera" type="depth">
+      <always_on>true</always_on>
+      <update_rate>20.0</update_rate>
+      <camera>
+        <horizontal_fov>1.04719666667</horizontal_fov>
+        <image>
+          <format>B8G8R8</format>
+          <width>640</width>
+          <height>480</height>
+        </image>
+        <clip>
+          <near>0.05</near>
+          <far>8.0</far>
+        </clip>
+      </camera>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="kinect_camera_controller">
+        <robotNamespace>/wam_powerbot</robotNamespace>
+        <cameraName>camera</cameraName>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <imageTopicName>rgb/image_raw</imageTopicName>
+        <depthImageTopicName>depth/image_raw</depthImageTopicName>
+        <pointCloudTopicName>depth/points</pointCloudTopicName>
+        <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+        <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+        <frameName>camera_depth_optical_frame</frameName>
+        <baseline>0.1</baseline>
+        <distortion_k1>0.0</distortion_k1>
+        <distortion_k2>0.0</distortion_k2>
+        <distortion_k3>0.0</distortion_k3>
+        <distortion_t1>0.0</distortion_t1>
+        <distortion_t2>0.0</distortion_t2>
+        <pointCloudCutoff>0.4</pointCloudCutoff>
+      </plugin>
+    </sensor>
   </gazebo>
-  <!--Right Wheel and hub-->
-  <link name="right_hubcap">
-    <inertial>
-      <mass value="0.08"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="0" ixz="0" iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/hubcap.stl"/>
+  <!-- Asus mount 
+    <joint name="mount_asus_xtion_pro_joint" type="fixed">
+      <origin xyz="-0.1024 0.0 0.272" rpy="0 0 0"/>
+      <parent link="${parent}"/>
+      <child link="mount_asus_xtion_pro_link"/>
+    </joint>  
+    <link name="mount_asus_xtion_pro_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="${-M_PI/2} 0 0"/>
+        <geometry>
+          <mesh filename="package://champ_description/meshes/sensors/xtion_pro_stack.dae"/>
+        </geometry>
+      </visual>  
+      <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+        <geometry>
+        <box size="0.0330 0.2760 0.0120"/>
       </geometry>
-      <material name="HubcapWhite">
-        <color rgba="1.0 1.0 1.0 1.0"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/hubcap.stl"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="right_hub_joint" type="continuous">
-    <origin rpy="0 0 0" xyz="0.084 -0.35 -0.0835"/>
-    <anchor xyz="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
+      </collision>
+      <inertial>
+        <mass value="0.170" />
+        <origin xyz="0 0 0" />
+        <inertia ixx="0.001152600" ixy="0.0" ixz="0.0"
+                 iyy="0.000148934" iyz="0.0"
+                 izz="0.001154654" />
+      </inertial>
+    </link>
+-->
+  <joint name="cam_joint" type="fixed">
+    <origin rpy="0.0202643 0.315979 0.0134257" xyz="0.351798 0.0081349 0.16"/>
     <parent link="base_center"/>
-    <child link="right_hubcap"/>
-    <axis xyz="0 1 0"/>
+    <child link="cam"/>
   </joint>
-  <link name="right_wheel">
-    <inertial>
-      <mass value="10.25"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.012411765597" ixy="0" ixz="0" iyy="0.015218160428" iyz="0" izz="0.011763977943"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/p3dx_meshes/wheel.stl"/>
-      </geometry>
-      <material name="WheelBlack">
-        <color rgba="0.117 0.117 0.117 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin rpy="-1.57079635 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.065" radius="0.1315"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="right_wheel_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="right_hubcap"/>
-    <child link="right_wheel"/>
-  </joint>
-  <gazebo reference="right_wheel">
-    <material value="Gazebo/Black"/>
-  </gazebo>
-  <joint name="kinect_joint" type="fixed">
-    <origin rpy="0.0202643 0.415979 0.0134257" xyz="0.451798 0.0081349 0.461428"/>
-    <parent link="base_center"/>
-    <child link="kinect_link"/>
-  </joint>
-  <link name="kinect_link">
-    <inertial>
-      <mass value="0.200"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="5.8083e-4" ixy="0" ixz="0" iyy="3.0833e-5" iyz="0" izz="5.9083e-4"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <!--
-          <geometry>
-            <box size="0.05 0.2 0.04"/>   <box size="0.035 0.185 0.025"/>
-          </geometry>
-          -->
-      <geometry>
-        <mesh filename="package://champ_description/meshes/asus_camera/asus_camera_simple.dae"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <mesh filename="package://champ_description/meshes/asus_camera/asus_camera_simple.dae"/>
-        <!--box size="0.035 0.185 0.025"/-->
-      </geometry>
-    </collision>
-  </link>
-  <joint name="kinect_depth_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.0 0.049 0.0"/>
-    <parent link="kinect_link"/>
-    <child link="kinect_depth_frame"/>
-  </joint>
-  <link name="kinect_depth_frame"/>
-  <joint name="kinect_depth_optical_joint" type="fixed">
-    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
-    <parent link="kinect_depth_frame"/>
-    <child link="kinect_depth_optical_frame"/>
-  </joint>
-  <link name="kinect_depth_optical_frame"/>
-  <joint name="kinect_rgb_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0.0 0.022 0.0"/>
-    <parent link="kinect_link"/>
-    <child link="kinect_rgb_frame"/>
-  </joint>
-  <link name="kinect_rgb_frame"/>
-  <joint name="kinect_rgb_optical_joint" type="fixed">
-    <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0 0 0"/>
-    <parent link="kinect_rgb_frame"/>
-    <child link="kinect_rgb_optical_frame"/>
-  </joint>
-  <link name="kinect_rgb_optical_frame"/>
+  <!-- Kinect stuff 
+  <xacro:include filename="$(find champ_description)/urdf/asus/asus.xacro"/>
+  <xacro:include filename="$(find champ_description)/urdf/asus/asus_cal.xacro"/>
+  <xacro:asus_camera_model name="kinect" parent="base_center">
+       <origin xyz="${asus_x} ${asus_y} ${asus_z}" rpy="${asus_roll} ${asus_pitch} ${asus_yaw}"/>
+  </xacro:asus_camera_model>
+  -->
   <!-- Root link is in the world frame-->
   <link name="world"/>
+  <joint name="world_fixed_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="world"/>
+    <child link="base_center"/>
+  </joint>
   <!-- ArmStuff -->
   <joint name="wam/bhand/bhand_base_joint" type="fixed">
     <parent link="wam/wrist_palm_link"/>
@@ -767,7 +594,7 @@
     <inertial>
       <origin xyz="-5.1098e-005 0.0050433 0.036671"/>
       <mass value="0.50573"/>
-      <inertia ixx="3.8374e-005" ixy="-5.604e-008" ixz="-4.2034e-005" iyy="0.00022405" iyz="1.3283e-007" izz="0.00020045"/>
+      <inertia ixx="0.00038374" ixy="-5.604e-008" ixz="-4.2034e-005" iyy="0.00022405" iyz="1.3283e-007" izz="0.00020045"/>
     </inertial>
     <visual>
       <material name="WAMGrey">
@@ -793,7 +620,7 @@
   <link name="wam/bhand/bhand_palm_surface_link">
     <inertial>
       <mass value="0.000001"/>
-      <inertia ixx="0.000001" ixy="0.0" ixz="0.0" iyy="0.000001" iyz="0.0" izz="0.000001"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
   <joint name="wam/bhand/bhand_grasp_joint" type="fixed">
@@ -806,7 +633,7 @@
   <link name="wam/bhand/bhand_grasp_link">
     <inertial>
       <mass value="0.000001"/>
-      <inertia ixx="0.000001" ixy="0.0" ixz="0.0" iyy="0.000001" iyz="0.0" izz="0.000001"/>
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
   </link>
   <joint name="wam/bhand/finger_1/prox_joint" type="revolute">
@@ -838,7 +665,7 @@
     <inertial>
       <origin xyz="0.023133 0.00078642 0.00052792"/>
       <mass value="0.14109"/>
-      <inertia ixx="4.872e-006" ixy="1.7103e-006" ixz="3.4041e-008" iyy="7.6588e-005" iyz="2.3133e-008" izz="7.7733e-005"/>
+      <inertia ixx="0.04872" ixy="1.7103e-006" ixz="3.4041e-008" iyy="0.076588" iyz="2.3133e-008" izz="0.077733"/>
     </inertial>
     <visual>
       <material name="WAMGrey">
@@ -878,7 +705,7 @@
     <inertial>
       <origin xyz="0.023133 0.00078642 0.00052792"/>
       <mass value="0.062139"/>
-      <inertia ixx="4.872e-006" ixy="1.7103e-006" ixz="3.4041e-008" iyy="7.6588e-005" iyz="2.3133e-008" izz="7.7733e-005"/>
+      <inertia ixx="0.04872" ixy="1.7103e-006" ixz="3.4041e-008" iyy="0.07658" iyz="2.3133e-008" izz="0.077733"/>
     </inertial>
     <visual>
       <material name="WAMGrey">
@@ -919,7 +746,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.022825 0.0010491 0.0004203"/>
       <mass value="0.041377"/>
-      <inertia ixx="3.1582e-006" ixy="1.4308e-006" ixz="1.0106e-007" iyy="3.8376e-005" iyz="0" izz="3.7275e-005"/>
+      <inertia ixx="0.031582" ixy="1.4308e-006" ixz="1.0106e-007" iyy="0.03837" iyz="0" izz="0.037275"/>
     </inertial>
     <visual>
       <origin rpy="0 0 -0.785398163397"/>
@@ -944,8 +771,8 @@
   </joint>
   <link name="wam/bhand/finger_1/tip_link">
     <inertial>
-      <mass value="1E-6"/>
-      <inertia ixx="1E-6" ixy="0" ixz="0" iyy="1E-6" iyz="0" izz="1E-6"/>
+      <mass value="0.031377"/>
+      <inertia ixx="0.0731582" ixy="1.4308e-006" ixz="1.0106e-007" iyy="0.07837" iyz="0" izz="0.07275"/>
     </inertial>
   </link>
   <joint name="wam/bhand/finger_2/prox_joint" type="revolute">
@@ -977,7 +804,7 @@
     <inertial>
       <origin xyz="0.023133 0.00078642 0.00052792"/>
       <mass value="0.14109"/>
-      <inertia ixx="4.872e-006" ixy="1.7103e-006" ixz="3.4041e-008" iyy="7.6588e-005" iyz="2.3133e-008" izz="7.7733e-005"/>
+      <inertia ixx="0.04872" ixy="1.7103e-006" ixz="3.4041e-008" iyy="0.076588" iyz="2.3133e-008" izz="0.077733"/>
     </inertial>
     <visual>
       <material name="WAMGrey">
@@ -1017,7 +844,7 @@
     <inertial>
       <origin xyz="0.023133 0.00078642 0.00052792"/>
       <mass value="0.062139"/>
-      <inertia ixx="4.872e-006" ixy="1.7103e-006" ixz="3.4041e-008" iyy="7.6588e-005" iyz="2.3133e-008" izz="7.7733e-005"/>
+      <inertia ixx="0.04872" ixy="1.7103e-006" ixz="3.4041e-008" iyy="0.07658" iyz="2.3133e-008" izz="0.077733"/>
     </inertial>
     <visual>
       <material name="WAMGrey">
@@ -1058,7 +885,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.022825 0.0010491 0.0004203"/>
       <mass value="0.041377"/>
-      <inertia ixx="3.1582e-006" ixy="1.4308e-006" ixz="1.0106e-007" iyy="3.8376e-005" iyz="0" izz="3.7275e-005"/>
+      <inertia ixx="0.031582" ixy="1.4308e-006" ixz="1.0106e-007" iyy="0.03837" iyz="0" izz="0.037275"/>
     </inertial>
     <visual>
       <origin rpy="0 0 -0.785398163397"/>
@@ -1083,8 +910,8 @@
   </joint>
   <link name="wam/bhand/finger_2/tip_link">
     <inertial>
-      <mass value="1E-6"/>
-      <inertia ixx="1E-6" ixy="0" ixz="0" iyy="1E-6" iyz="0" izz="1E-6"/>
+      <mass value="0.031377"/>
+      <inertia ixx="0.0731582" ixy="1.4308e-006" ixz="1.0106e-007" iyy="0.07837" iyz="0" izz="0.07275"/>
     </inertial>
   </link>
   <joint name="wam/bhand/finger_3/med_joint" type="revolute">
@@ -1111,7 +938,7 @@
     <inertial>
       <origin xyz="0.023133 0.00078642 0.00052792"/>
       <mass value="0.062139"/>
-      <inertia ixx="4.872e-006" ixy="1.7103e-006" ixz="3.4041e-008" iyy="7.6588e-005" iyz="2.3133e-008" izz="7.7733e-005"/>
+      <inertia ixx="0.04872" ixy="1.7103e-006" ixz="3.4041e-008" iyy="0.07658" iyz="2.3133e-008" izz="0.077733"/>
     </inertial>
     <visual>
       <material name="WAMGrey">
@@ -1152,7 +979,7 @@
     <inertial>
       <origin rpy="0 0 0" xyz="0.022825 0.0010491 0.0004203"/>
       <mass value="0.041377"/>
-      <inertia ixx="3.1582e-006" ixy="1.4308e-006" ixz="1.0106e-007" iyy="3.8376e-005" iyz="0" izz="3.7275e-005"/>
+      <inertia ixx="0.031582" ixy="1.4308e-006" ixz="1.0106e-007" iyy="0.03837" iyz="0" izz="0.037275"/>
     </inertial>
     <visual>
       <origin rpy="0 0 -0.785398163397"/>
@@ -1177,8 +1004,8 @@
   </joint>
   <link name="wam/bhand/finger_3/tip_link">
     <inertial>
-      <mass value="1E-6"/>
-      <inertia ixx="1E-6" ixy="0" ixz="0" iyy="1E-6" iyz="0" izz="1E-6"/>
+      <mass value="0.031377"/>
+      <inertia ixx="0.0731582" ixy="1.4308e-006" ixz="1.0106e-007" iyy="0.07837" iyz="0" izz="0.07275"/>
     </inertial>
   </link>
   <joint name="wam/wam_fixed_joint" type="fixed">
@@ -1489,11 +1316,6 @@
       <inertia ixx="0.0000001" ixy="0.0" ixz="0.0" iyy="0.0000001" iyz="0.0" izz="0.0000001"/>
     </inertial>
   </link>
-  <joint name="powerbot/world_joint" type="planar">
-    <parent link="world"/>
-    <child link="base_center"/>
-    <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
-  </joint>
   <!--Joint Controllers
 - ARM
       - wam/base_yaw_joint

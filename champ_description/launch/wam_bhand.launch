@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+  <env name="GAZEBO_MODEL_PATH" value="$GAZEBO_MODEL_PATH:$(find champ_description)/meshes" />
+  <env name="GAZEBO_RESOURCE_PATH" value="$GAZEBO_RESOURCE_PATH:$(find champ_description)/gazebo/models" />
+
+<arg name="world" default="$(find champ_description)/gazebo/empty.world" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+	<arg name="world_name" value="$(arg world)" />
+  </include>
+
+  <arg name="urdf" default="$(find champ_description)/urdf/wam/wam_bhand.urdf" />
+  <arg name="name" default="wam7" />
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg urdf)" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model $(arg name)" />
+<!--  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+
+      <remap from="wam_joint_1" to="wam/base_yaw_joint" />
+      <remap from="wam_joint_2" to="wam/shoulder_pitch_joint" />
+      <remap from="wam_joint_3" to="wam/shoulder_yaw_joint" />
+      <remap from="wam_joint_4" to="wam/elbow_pitch_joint" />
+      <remap from="wam_joint_5" to="wam/wrist_yaw_joint" />
+      <remap from="wam_joint_6" to="wam/wrist_pitch_joint" />
+      <remap from="wam_joint_7" to="wam/palm_yaw_joint" />
+
+  </node>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+
+  </node>
+
+-->
+</launch>
+

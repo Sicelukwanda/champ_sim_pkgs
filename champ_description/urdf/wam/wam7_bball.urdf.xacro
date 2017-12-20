@@ -11,8 +11,6 @@
   <!-- 7-DOF Wam -->
   <xacro:wam_7dof prefix="wam" parent_link="world" xyz="0.0 0.0 0.5" rpy="0 0 0" />
 
-  <!-- BHand -->
-  <xacro:bhand prefix="wam/bhand" parent_link="wam/wrist_palm_link" xyz="0 0 0.06" rpy="0 0 1.57079"/>
-
-  <!-- WAM joint Controllers -->
+  <!-- BBall -->
+  <xacro:bball prefix="wam/bball" parent_link="wam/wrist_palm_link" xyz="0 0 0.06" rpy="0 0 1.57079"/>
 </robot>

@@ -21,7 +21,7 @@ wam_powerbot:
     type: effort_controllers/JointPositionController
     joint: wam/elbow_pitch_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
-  wam/wrist_yaw_position_controller:
+  wam/wrist_yaw_joint_position_controller:
     type: effort_controllers/JointPositionController
     joint: wam/wrist_yaw_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}
