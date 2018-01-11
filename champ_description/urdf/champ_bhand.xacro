@@ -35,7 +35,7 @@
 
 <joint name="world_fixed_joint" type="fixed">
 <!--NB!: origin of base_center is in the center of the chassis, therefore we need to offset the base along z-axis to avoing collisions with the floor-->
-<origin xyz="0 0 0" rpy="0 0 0.2"/>
+<origin xyz="0 0 0.2" rpy="0 0 0"/>
 <parent link="world"/>
 <child link="base_center"/>
 </joint>	

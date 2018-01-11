@@ -1,16 +1,30 @@
 <?xml version="1.0"?>
 <launch>
-  <env name="GAZEBO_MODEL_PATH" value="$GAZEBO_MODEL_PATH:$(find champ_description)/meshes" />
-  <env name="GAZEBO_RESOURCE_PATH" value="$GAZEBO_RESOURCE_PATH:$(find champ_description)/gazebo/models" />
 
-<arg name="world" default="$(find champ_description)/gazebo/empty.world" />
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="control" default="position"/>
+  <arg name="eef" default="bball"/>
+
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-	<arg name="world_name" value="$(arg world)" />
+    <arg name="world_name" value="$(find champ_description)/launch/empty.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description"
-    command="$(find xacro)/xacro --inorder '$(find champ_description)/urdf/wam/wam7_bball.urdf.xacro'" />
+    command="$(find xacro)/xacro --inorder '$(find champ_description)/urdf/wam/wam7_$(arg eef).urdf.xacro'" />
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
     <param name="publish_frequency" type="double" value="30.0" />
   </node>
@@ -19,22 +33,8 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="-urdf -model wam_powerbot -param robot_description"/>
 
-<!--  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+  <!-- ros_control wam launch file -->
+<include file="$(find wam_control)/launch/wam_$(arg eef)_$(arg control)_control.launch" />
 
-      <remap from="wam_joint_1" to="wam/base_yaw_joint" />
-      <remap from="wam_joint_2" to="wam/shoulder_pitch_joint" />
-      <remap from="wam_joint_3" to="wam/shoulder_yaw_joint" />
-      <remap from="wam_joint_4" to="wam/elbow_pitch_joint" />
-      <remap from="wam_joint_5" to="wam/wrist_yaw_joint" />
-      <remap from="wam_joint_6" to="wam/wrist_pitch_joint" />
-      <remap from="wam_joint_7" to="wam/palm_yaw_joint" />
-
-  </node>
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="use_gui" value="TRUE"/>
-
-  </node>
-
--->
 </launch>
 
