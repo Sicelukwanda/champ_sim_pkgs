@@ -1,0 +1,22 @@
+ros_control_namespace: /wam_powerbot
+move_group/controller_list:
+  - name: position_controllers/JointTrajectoryController
+    type: moveit_ros_control_interface::JointTrajectoryControllerAllocator
+    default: true
+    joints:
+      - wam/base_yaw_joint
+      - wam/shoulder_pitch_joint
+      - wam/shoulder_yaw_joint
+      - wam/elbow_pitch_joint
+      - wam/wrist_yaw_joint
+      - wam/wrist_pitch_joint
+      - wam/palm_yaw_joint
+#  - name: wam
+#    action_ns: gripper_action
+#    type: GripperCommand
+#    default: true
+#    joints:
+#      - bhand_finger3
+#      - bhand_spread
+#      - bhand_finger1
+#      - bhand_finger2
