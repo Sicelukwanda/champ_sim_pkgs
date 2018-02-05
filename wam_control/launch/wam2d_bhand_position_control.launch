@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find wam_control)/config/wam_control_position.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/wam_powerbot" args="    wam/base_yaw_joint_position_controller
+					wam/shoulder_pitch_joint_position_controller
+					wam/bhand/finger_1/prox_joint_position_controller
+					wam/bhand/finger_1/med_joint_position_controller
+					wam/bhand/finger_1/dist_joint_position_controller
+					wam/bhand/finger_2/prox_joint_position_controller
+					wam/bhand/finger_2/med_joint_position_controller
+					wam/bhand/finger_2/dist_joint_position_controller
+					wam/bhand/finger_3/med_joint_position_controller
+					wam/bhand/finger_3/dist_joint_position_controller
+					joint_state_controller
+					"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"
+    respawn="false" output="screen">  
+     <param name="/use_gui" value="false"/>
+    <rosparam param="/source_list">[/wam_powerbot/joint_states]</rosparam>
+  </node>
+
+</launch>
+
+
+
