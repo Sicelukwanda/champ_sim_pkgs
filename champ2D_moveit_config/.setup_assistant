@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: champ_description
+    relative_path: urdf/champ2D_bhand.urdf
+  SRDF:
+    relative_path: config/wam_powerbot.srdf
+  CONFIG:
+    author_name: Sicelukwanda Zwane
+    author_email: sicelukwanda.zwane@gmail.com
+    generated_timestamp: 1517822334
