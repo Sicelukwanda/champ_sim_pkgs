@@ -24,7 +24,7 @@ wam_powerbot:
   wam/wrist_yaw_joint_position_controller:
     type: effort_controllers/JointPositionController
     joint: wam/wrist_yaw_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 30.0, i: 0.01, d: 2.0}
   wam/wrist_pitch_joint_position_controller:
     type: effort_controllers/JointPositionController
     joint: wam/wrist_pitch_joint
@@ -32,7 +32,7 @@ wam_powerbot:
   wam/palm_yaw_joint_position_controller:
     type: effort_controllers/JointPositionController
     joint: wam/palm_yaw_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+    pid: {p: 2.0, i: 0.01, d: 2.0}
   wam/bhand/finger_1/prox_joint_position_controller:
     type: effort_controllers/JointPositionController
     joint: wam/bhand/finger_1/prox_joint

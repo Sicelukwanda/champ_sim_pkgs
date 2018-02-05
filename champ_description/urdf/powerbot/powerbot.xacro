@@ -45,12 +45,12 @@
 			<color rgba="0.8 0.4 0.3 1"/>
 		</material>
 	</visual>
-	<collision>
+	<!--<collision>
 		<origin xyz="0.2 0 0.03" rpy="0 0 0"/>
 		<geometry>
 			<box size="0.45 0.75 0.05"/>
 		</geometry>
-	</collision>
+	</collision>-->
 </link>
 
 <joint name="arm_plate_joint" type="fixed">
@@ -75,12 +75,12 @@
 				<mesh filename="${mesh_directory}/chassis.stl"/>
 			</geometry>
 		</visual>
-		<collision>
+		<!--<collision>
 			<origin xyz="-0.045 0 ${bcz}" rpy="0 0 0"/>
 			<geometry>
 				<mesh filename="${mesh_directory}/chassis.stl" scale="1.01 1.01 1.01"/>
 			</geometry>
-		</collision>
+		</collision>-->
 	</link>
 	<gazebo reference="base_center">
 		 <material>Gazebo/Yellow</material>
@@ -114,12 +114,12 @@
 					<color rgba="0.038 0.038 0.038 1.0"/>
 			</material>
 		</visual>
-		<collision>
+		<!--<collision>
 			<origin xyz="0 0 0" rpy="0 0 0"/>
 			<geometry>
 				<mesh filename="${mesh_directory}/top.stl" />
 			</geometry>
-		</collision>
+		</collision>-->
 	</link>
 	<gazebo reference="top_plate">
 		<material value="Gazebo/Black"/>
